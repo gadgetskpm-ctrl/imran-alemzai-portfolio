@@ -159,3 +159,264 @@ if (window.gsap) {
     });
   });
 }
+
+const menuToggle = document.querySelector('.menu-toggle');
+const primaryNav = document.querySelector('#primary-nav');
+function setMenu(open) {
+  document.body.classList.toggle('menu-open', open);
+  menuToggle.setAttribute('aria-expanded', String(open));
+}
+menuToggle.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
+primaryNav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setMenu(false)));
+addEventListener('keydown', event => {
+  if (event.key === 'Escape') setMenu(false);
+});
+
+const services = [
+  {title:'Websites and Shopify stores',description:'Purposeful web experiences for businesses that need clear messaging, useful customer paths, and maintainable content.',deliverables:['Business or campaign website','Shopify storefront structure','Landing pages and content sections'],build:'Website or Shopify store',example:{type:'demo',index:0}},
+  {title:'AI videos, ads, brochures, and social content',description:'A connected visual-content system shaped around the campaign, audience, format, and publishing workflow.',deliverables:['Short-form video concepts','Advertising and brochure creative','Reusable social-content directions'],build:'AI video or campaign content',example:{type:'demo',index:2}},
+  {title:'AI agents and custom GPT workflows',description:'Bounded assistants that organize knowledge, prompts, and repeatable tasks around a defined human workflow.',deliverables:['Custom GPT workflow','Prompt and knowledge architecture','Human approval checkpoints'],build:'AI agent or custom GPT workflow',example:{type:'work',index:1}},
+  {title:'Business automation',description:'Connected processes that reduce repetitive handoffs while keeping important decisions visible to people.',deliverables:['Workflow map','API or no-code integrations','Failure and approval states'],build:'Business automation',example:{type:'work',index:1}},
+  {title:'Simple applications and dashboards',description:'Focused interfaces that make a task, process, or operational view easier to use and understand.',deliverables:['Interactive front-end prototype','Operational dashboard concept','Responsive application interface'],build:'Application or dashboard',example:{type:'demo',index:3}},
+  {title:'IT support and AI implementation',description:'Practical technical help for teams adopting digital tools, troubleshooting systems, or introducing AI responsibly.',deliverables:['Implementation plan','Technical setup and documentation','Staff guidance and support workflow'],build:'IT support or AI implementation',example:{type:'work',index:3}}
+];
+
+const demoDefinitions = [
+  {name:'Barber shop website',type:'Responsive website',address:'preview.local/barber'},
+  {name:'Fast-food website',type:'Interactive menu',address:'preview.local/food'},
+  {name:'Graphic design studio website',type:'Filtered portfolio',address:'preview.local/studio'},
+  {name:'Fitness app concept',type:'Mobile dashboard',address:'preview.local/fitness'}
+];
+
+const serviceButtons = [...document.querySelectorAll('[data-service]')];
+const demoButtons = [...document.querySelectorAll('[data-demo]')];
+const serviceTitle = document.querySelector('#service-title');
+const serviceDescription = document.querySelector('#service-description');
+const serviceDeliverables = document.querySelector('#service-deliverables');
+const buildSelect = document.querySelector('[name="build"]');
+let activeService = 0;
+let activeDemo = 0;
+
+function selectService(index, focus = false) {
+  activeService = index;
+  const service = services[index];
+  serviceButtons.forEach((button, buttonIndex) => {
+    const selected = buttonIndex === index;
+    button.classList.toggle('active', selected);
+    button.setAttribute('aria-selected', String(selected));
+    button.tabIndex = selected ? 0 : -1;
+  });
+  document.querySelector('#service-index').textContent = `0${index + 1} / SERVICE`;
+  serviceTitle.textContent = service.title;
+  serviceDescription.textContent = service.description;
+  serviceDeliverables.replaceChildren(...service.deliverables.map(deliverable => {
+    const item = document.createElement('li');
+    item.textContent = deliverable;
+    return item;
+  }));
+  if (focus) serviceButtons[index].focus();
+  if (window.gsap && !reducedMotion) {
+    gsap.fromTo('.service-detail > :not(.service-actions)', {y:12, autoAlpha:0}, {y:0, autoAlpha:1, stagger:.04, duration:.32, ease:'portfolio'});
+  }
+}
+
+function keyboardSelect(event, index, length, callback) {
+  if (!['ArrowDown','ArrowRight','ArrowUp','ArrowLeft','Home','End'].includes(event.key)) return;
+  event.preventDefault();
+  const forward = event.key === 'ArrowDown' || event.key === 'ArrowRight';
+  const next = event.key === 'Home' ? 0 : event.key === 'End' ? length - 1 : (index + (forward ? 1 : -1) + length) % length;
+  callback(next, true);
+}
+
+serviceButtons.forEach((button, index) => {
+  button.addEventListener('click', () => selectService(index));
+  button.addEventListener('keydown', event => keyboardSelect(event, index, services.length, selectService));
+});
+
+function barberDemo() {
+  return `<div class="demo-ui barber-demo"><header><span class="demo-brand">Northline Barber</span><button class="outline-action demo-cta" data-demo-action="book">Book an appointment</button></header><h4>Look sharp.<br>Feel ready.</h4><p>A clean booking journey showing service, time, and inquiry states.</p><div class="micro-tabs" role="tablist" aria-label="Booking steps"><button class="active" data-micro="Choose a service">Service</button><button data-micro="Choose an available time">Time</button><button data-micro="Review contact details">Details</button></div><div class="demo-response" role="status">Choose a service to begin the demonstration.</div></div>`;
+}
+
+const foodItems = [
+  {category:'burgers',name:'House Burger',detail:'Double patty · house sauce'},
+  {category:'burgers',name:'Garden Stack',detail:'Grilled vegetables · herb sauce'},
+  {category:'sides',name:'Crisp Fries',detail:'Sea salt · smoked seasoning'},
+  {category:'sides',name:'Street Corn',detail:'Lime · chili · herbs'},
+  {category:'drinks',name:'Citrus Fizz',detail:'Lemon · lime · soda'},
+  {category:'drinks',name:'Cold Brew',detail:'Slow-steeped · chilled'}
+];
+
+function fastFoodDemo(category = 'all') {
+  const items = foodItems.filter(item => category === 'all' || item.category === category);
+  return `<div class="demo-ui food-demo"><header><span class="demo-brand">Counter / 24</span><button class="outline-action demo-cta" data-demo-action="food">Start an inquiry</button></header><h4>Fast menu.<br>Clear choices.</h4><div class="menu-filters" role="tablist" aria-label="Menu categories">${['all','burgers','sides','drinks'].map(item => `<button class="${item === category ? 'active' : ''}" data-food-filter="${item}">${item}</button>`).join('')}</div><div class="menu-items">${items.map(item => `<div class="menu-item"><b>${item.name}</b><span>${item.detail}</span></div>`).join('')}</div><div class="demo-response" role="status">Showing ${category === 'all' ? 'all menu categories' : category}.</div></div>`;
+}
+
+const studioItems = [
+  {category:'brand',name:'Identity system',detail:'Direction · typography · usage'},
+  {category:'web',name:'Launch website',detail:'Structure · interface · responsive build'},
+  {category:'campaign',name:'Campaign toolkit',detail:'Concept · formats · publishing system'},
+  {category:'brand',name:'Print direction',detail:'Brochure · presentation · collateral'},
+  {category:'web',name:'Project archive',detail:'Filterable case-study experience'},
+  {category:'campaign',name:'Social series',detail:'Templates · motion · content rhythm'}
+];
+
+function studioDemo(category = 'all') {
+  const items = studioItems.filter(item => category === 'all' || item.category === category);
+  return `<div class="demo-ui studio-demo"><header><span class="demo-brand">Form / Field Studio</span><button class="outline-action demo-cta" data-demo-action="studio">Send an inquiry</button></header><h4>Design with<br>a working system.</h4><div class="studio-filters" role="tablist" aria-label="Portfolio filters">${['all','brand','web','campaign'].map(item => `<button class="${item === category ? 'active' : ''}" data-studio-filter="${item}">${item}</button>`).join('')}</div><div class="studio-items">${items.map(item => `<div class="studio-item"><b>${item.name}</b><span>${item.detail}</span></div>`).join('')}</div><div class="demo-response" role="status">Showing ${category === 'all' ? 'all studio work' : category + ' work'}.</div></div>`;
+}
+
+function fitnessDemo(view = 'today') {
+  const views = {
+    today:[['Movement','3 planned sessions'],['Recovery','Check-in available'],['Focus','Mobility and consistency']],
+    plans:[['Strength','Three-day foundation'],['Mobility','Daily movement plan'],['Cardio','Low-impact progression']],
+    progress:[['Sessions','Recent activity overview'],['Consistency','Weekly pattern'],['Notes','Personal observations']],
+    profile:[['Preferences','Training settings'],['Reminders','Notification choices'],['Support','Help and guidance']]
+  };
+  return `<div class="demo-ui fitness-demo"><header><span class="demo-brand">Form / Fitness</span><span>CONCEPT ONLY</span></header><h4>Your training.<br>One clear view.</h4><div class="fitness-cards">${views[view].map(card => `<div class="fitness-card"><b>${card[0]}</b><span>${card[1]}</span></div>`).join('')}</div><div class="fitness-nav" role="tablist" aria-label="Fitness app navigation">${['today','plans','progress','profile'].map(item => `<button class="${item === view ? 'active' : ''}" data-fitness-view="${item}">${item}</button>`).join('')}</div><div class="demo-response" role="status">${view[0].toUpperCase() + view.slice(1)} view selected.</div></div>`;
+}
+
+function renderDemo(index, focus = false) {
+  activeDemo = index;
+  demoButtons.forEach((button, buttonIndex) => {
+    const selected = buttonIndex === index;
+    button.classList.toggle('active', selected);
+    button.setAttribute('aria-selected', String(selected));
+    button.tabIndex = selected ? 0 : -1;
+  });
+  const demo = demoDefinitions[index];
+  document.querySelector('#demo-name').textContent = demo.name;
+  document.querySelector('#demo-type').textContent = demo.type;
+  document.querySelector('#demo-address').textContent = demo.address;
+  document.querySelector('#demo-stage').innerHTML = index === 0 ? barberDemo() : index === 1 ? fastFoodDemo() : index === 2 ? studioDemo() : fitnessDemo();
+  if (focus) demoButtons[index].focus();
+  if (window.gsap && !reducedMotion) gsap.fromTo('#demo-stage > *', {autoAlpha:0, y:14}, {autoAlpha:1, y:0, duration:.35, ease:'portfolio'});
+}
+
+demoButtons.forEach((button, index) => {
+  button.addEventListener('click', () => renderDemo(index));
+  button.addEventListener('keydown', event => keyboardSelect(event, index, demoDefinitions.length, renderDemo));
+});
+
+document.querySelector('#view-service-example').addEventListener('click', () => {
+  const example = services[activeService].example;
+  if (example.type === 'demo') {
+    renderDemo(example.index);
+    document.querySelector('#demos').scrollIntoView();
+  } else {
+    document.querySelectorAll('#work .project')[example.index].scrollIntoView();
+  }
+});
+
+document.querySelector('#request-service').addEventListener('click', () => {
+  buildSelect.value = services[activeService].build;
+});
+
+document.querySelector('#demo-stage').addEventListener('click', event => {
+  const micro = event.target.closest('[data-micro]');
+  const food = event.target.closest('[data-food-filter]');
+  const studio = event.target.closest('[data-studio-filter]');
+  const fitness = event.target.closest('[data-fitness-view]');
+  const action = event.target.closest('[data-demo-action]');
+  if (micro) {
+    document.querySelectorAll('[data-micro]').forEach(button => button.classList.toggle('active', button === micro));
+    document.querySelector('#demo-stage .demo-response').textContent = micro.dataset.micro + '. This front-end demo does not submit a booking.';
+  }
+  if (food) document.querySelector('#demo-stage').innerHTML = fastFoodDemo(food.dataset.foodFilter);
+  if (studio) document.querySelector('#demo-stage').innerHTML = studioDemo(studio.dataset.studioFilter);
+  if (fitness) document.querySelector('#demo-stage').innerHTML = fitnessDemo(fitness.dataset.fitnessView);
+  if (action) {
+    const response = document.querySelector('#demo-stage .demo-response');
+    response.textContent = 'Demo inquiry state opened. No information was sent.';
+  }
+});
+
+const form = document.querySelector('#project-form');
+const formStatus = document.querySelector('#form-status');
+const description = form.elements.description;
+const formEndpoint = document.querySelector('meta[name="form-endpoint"]').content.trim();
+const contactEmail = document.querySelector('meta[name="contact-email"]').content.trim();
+const bookingUrl = document.querySelector('meta[name="booking-url"]').content.trim();
+const bookingLink = document.querySelector('.booking-link');
+
+description.addEventListener('input', () => {
+  document.querySelector('#description-count').textContent = description.value.length;
+});
+
+if (contactEmail) {
+  const link = document.createElement('a');
+  link.className = 'contact-email';
+  link.href = `mailto:${contactEmail}`;
+  link.textContent = contactEmail;
+  document.querySelector('#contact-fallback').replaceChildren('Email fallback: ', link);
+}
+
+if (bookingUrl) {
+  bookingLink.href = bookingUrl;
+  bookingLink.removeAttribute('aria-disabled');
+  bookingLink.target = '_blank';
+  bookingLink.rel = 'noopener';
+  document.querySelector('#booking-fallback').textContent = 'Booking link: configured.';
+} else {
+  bookingLink.addEventListener('click', event => {
+    event.preventDefault();
+    formStatus.className = 'form-status wide error';
+    formStatus.textContent = 'Booking is not configured yet. Use the project form or configured email fallback.';
+  });
+}
+
+form.addEventListener('input', event => {
+  if (event.target.matches('input,select,textarea')) event.target.removeAttribute('aria-invalid');
+});
+
+form.addEventListener('submit', async event => {
+  event.preventDefault();
+  const fields = [...form.querySelectorAll('[required]')];
+  fields.forEach(field => field.setAttribute('aria-invalid', String(!field.checkValidity())));
+  const invalid = fields.find(field => !field.checkValidity());
+  if (invalid) {
+    formStatus.className = 'form-status wide error';
+    formStatus.textContent = 'Please complete every required field with a valid email address.';
+    invalid.focus();
+    return;
+  }
+  const payload = Object.fromEntries(new FormData(form));
+  if (!formEndpoint) {
+    formStatus.className = 'form-status wide success';
+    formStatus.textContent = `Inquiry validated and ready, but it was not sent because no form endpoint is configured.${contactEmail ? ' Use the visible email fallback.' : ' Email fallback is also not configured.'}`;
+    return;
+  }
+  formStatus.className = 'form-status wide';
+  formStatus.textContent = 'Sending inquiry…';
+  try {
+    const response = await fetch(formEndpoint, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
+    if (!response.ok) throw new Error('Endpoint rejected the inquiry');
+    formStatus.className = 'form-status wide success';
+    formStatus.textContent = 'Inquiry delivered successfully.';
+    form.reset();
+    document.querySelector('#description-count').textContent = '0';
+  } catch {
+    formStatus.className = 'form-status wide error';
+    formStatus.textContent = `The inquiry could not be delivered.${contactEmail ? ' Please use the visible email fallback.' : ' Email fallback is not configured.'}`;
+  }
+});
+
+if (finePointer && !reducedMotion) {
+  document.addEventListener('pointerover', event => {
+    if (event.target.closest('a,button,input,select,textarea')) cursor.classList.add('active');
+  });
+  document.addEventListener('pointerout', event => {
+    if (event.target.closest('a,button,input,select,textarea')) cursor.classList.remove('active');
+  });
+}
+
+selectService(0);
+renderDemo(0);
+
+if (window.gsap) {
+  const clientMotion = gsap.matchMedia();
+  clientMotion.add('(prefers-reduced-motion: no-preference)', () => {
+    document.querySelectorAll('.client-reveal').forEach(element => {
+      gsap.from(element, {y:28, autoAlpha:0, duration:.7, ease:'portfolio', scrollTrigger:{trigger:element, start:'top 88%', once:true}});
+    });
+  });
+}
