@@ -10,3 +10,4 @@ button,input,select,textarea{font:inherit;color:inherit}button{border:0}.hero-ac
 @media(max-width:700px){.approach ol{grid-template-columns:1fr}.approach li,.approach li:nth-child(3){min-height:0;border-right:0;border-bottom:1px solid var(--line);padding:26px 4px}.approach li:last-child{border-bottom:0}.approach li h3{margin-top:24px}.approach li small{margin-top:4px}.approach .heading p{margin-top:24px}}
 @media(prefers-reduced-motion:reduce){.approach li{transition:none}}
 .approach li h3{font-size:clamp(21px,1.75vw,28px);white-space:nowrap;overflow-wrap:normal}
+.about-statement>span{display:block}.about-statement .studio-name{margin-bottom:22px;color:var(--acid);font:600 12px/1 var(--mono);letter-spacing:.12em}
