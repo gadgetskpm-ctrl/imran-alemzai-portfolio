@@ -178,7 +178,7 @@ const services = [
   {title:'AI agents and custom GPT workflows',description:'Bounded assistants that organize knowledge, prompts, and repeatable tasks around a defined human workflow.',deliverables:['Custom GPT workflow','Prompt and knowledge architecture','Human approval checkpoints'],build:'AI agent or custom GPT workflow',example:{type:'demo',index:3}},
   {title:'Business automation',description:'Connected processes that reduce repetitive handoffs while keeping important decisions visible to people.',deliverables:['Workflow map','API or no-code integrations','Failure and approval states'],build:'Business automation',example:{type:'demo',index:3}},
   {title:'Simple applications and dashboards',description:'Focused interfaces that make a task, process, or operational view easier to use and understand.',deliverables:['Interactive front-end prototype','Operational dashboard concept','Responsive application interface'],build:'Application or dashboard',example:{type:'demo',index:3}},
-  {title:'IT support and AI implementation',description:'Practical technical help for teams adopting digital tools, troubleshooting systems, or introducing AI responsibly.',deliverables:['Implementation plan','Technical setup and documentation','Staff guidance and support workflow'],build:'IT support or AI implementation',example:{type:'work',index:0}}
+  {title:'IT support and AI implementation',description:'Practical technical help for teams adopting digital tools, troubleshooting systems, or introducing AI responsibly.',deliverables:['Implementation plan','Technical setup and documentation','Staff guidance and support workflow'],build:'IT support or AI implementation',example:{type:'demo',index:3}}
 ];
 
 const demoDefinitions = [
@@ -299,12 +299,8 @@ demoButtons.forEach((button, index) => {
 
 document.querySelector('#view-service-example').addEventListener('click', () => {
   const example = services[activeService].example;
-  if (example.type === 'demo') {
-    renderDemo(example.index);
-    document.querySelector('#demos').scrollIntoView();
-  } else {
-    document.querySelectorAll('#work .project')[example.index].scrollIntoView();
-  }
+  renderDemo(example.index);
+  document.querySelector('#demos').scrollIntoView();
 });
 
 document.querySelector('#request-service').addEventListener('click', () => {
