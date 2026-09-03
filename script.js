@@ -396,6 +396,47 @@ form.addEventListener('submit', async event => {
   }
 });
 
+const capabilityData = [
+  {name:'AI',description:'Practical AI systems shaped around a defined business workflow.',deliverables:'Custom GPT systems · prompt architecture · human approval flows'},
+  {name:'WEB',description:'Clear digital experiences that guide visitors toward useful action.',deliverables:'Business websites · Shopify stores · campaign landing pages'},
+  {name:'AUTOMATION',description:'Connected processes that reduce repetitive work and visible handoffs.',deliverables:'Marketing automation · workflow maps · integration prototypes'},
+  {name:'MEDIA',description:'Creative production systems built for consistent publishing.',deliverables:'AI video production · ad creative · social media content'},
+  {name:'APPS',description:'Focused interfaces that make a business task easier to operate.',deliverables:'Business app concepts · dashboards · interactive prototypes'},
+  {name:'IT',description:'Practical technical implementation with clear documentation and support.',deliverables:'IT support workflows · technical setup · implementation guidance'}
+];
+const capabilityEngine = document.querySelector('.capability-engine');
+const capabilityButtons = [...document.querySelectorAll('[data-capability]')];
+function selectCapability(index, focus = false) {
+  const capability = capabilityData[index];
+  capabilityButtons.forEach((button, buttonIndex) => {
+    const selected = buttonIndex === index;
+    button.classList.toggle('active', selected);
+    button.setAttribute('aria-pressed', String(selected));
+  });
+  document.querySelector('#capability-index').textContent = `${String(index + 1).padStart(2,'0')} / ${capability.name}`;
+  document.querySelector('#capability-description').textContent = capability.description;
+  document.querySelector('#capability-deliverables').textContent = capability.deliverables;
+  if (focus) capabilityButtons[index].focus();
+}
+capabilityButtons.forEach((button, index) => {
+  button.addEventListener('click', () => selectCapability(index));
+  button.addEventListener('pointerenter', () => selectCapability(index));
+  button.addEventListener('focus', () => selectCapability(index));
+  button.addEventListener('keydown', event => keyboardSelect(event, index, capabilityButtons.length, selectCapability));
+});
+selectCapability(0);
+if (capabilityEngine && finePointer && !reducedMotion) {
+  capabilityEngine.addEventListener('pointermove', event => {
+    const bounds = capabilityEngine.getBoundingClientRect();
+    capabilityEngine.style.setProperty('--engine-x', `${((event.clientX - bounds.left) / bounds.width - .5) * 10}px`);
+    capabilityEngine.style.setProperty('--engine-y', `${((event.clientY - bounds.top) / bounds.height - .5) * 8}px`);
+  });
+  capabilityEngine.addEventListener('pointerleave', () => {
+    capabilityEngine.style.setProperty('--engine-x', '0px');
+    capabilityEngine.style.setProperty('--engine-y', '0px');
+  });
+}
+
 if (finePointer && !reducedMotion) {
   document.addEventListener('pointerover', event => {
     if (event.target.closest('a,button,input,select,textarea')) cursor.classList.add('active');
