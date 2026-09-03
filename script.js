@@ -173,12 +173,14 @@ addEventListener('keydown', event => {
 });
 
 const services = [
-  {title:'Websites and Shopify stores',description:'Purposeful web experiences for businesses that need clear messaging, useful customer paths, and maintainable content.',deliverables:['Business or campaign website','Shopify storefront structure','Landing pages and content sections'],build:'Website or Shopify store',example:{type:'demo',index:0}},
-  {title:'AI videos, ads, and social media content',description:'A connected visual-content system shaped around the campaign, audience, format, and publishing workflow.',deliverables:['Short-form video concepts','Advertising creative','Reusable social media content systems'],build:'AI video or campaign content',example:{type:'demo',index:2}},
-  {title:'AI agents and custom GPT workflows',description:'Bounded assistants that organize knowledge, prompts, and repeatable tasks around a defined human workflow.',deliverables:['Custom GPT workflow','Prompt and knowledge architecture','Human approval checkpoints'],build:'AI agent or custom GPT workflow',example:{type:'demo',index:3}},
-  {title:'Business automation',description:'Connected processes that reduce repetitive handoffs while keeping important decisions visible to people.',deliverables:['Workflow map','API or no-code integrations','Failure and approval states'],build:'Business automation',example:{type:'demo',index:3}},
-  {title:'Simple applications and dashboards',description:'Focused interfaces that make a task, process, or operational view easier to use and understand.',deliverables:['Interactive front-end prototype','Operational dashboard concept','Responsive application interface'],build:'Application or dashboard',example:{type:'demo',index:3}},
-  {title:'IT support and AI implementation',description:'Practical technical help for teams adopting digital tools, troubleshooting systems, or introducing AI responsibly.',deliverables:['Implementation plan','Technical setup and documentation','Staff guidance and support workflow'],build:'IT support or AI implementation',example:{type:'demo',index:3}}
+  {category:'Graphic design & brand assets',title:'Build a brand people recognize.',description:'Visual assets that make a business look consistent, credible, and ready to sell.',deliverables:['Logos and visual identity','Brochures and flyers','Product packaging','ID cards and business materials','Social graphics','Presentation designs'],workflow:['BRIEF','IDENTITY','ASSETS','DELIVER'],preview:'assets/services/graphic-design.webp',alt:'Abstract brochure, packaging, identity, poster, and social graphic mockups',caption:'Brand asset system preview',build:'Graphic design and brand assets',example:{type:'demo',index:2}},
+  {category:'AI video & content production',title:'Turn ideas into publish-ready media.',description:'AI-assisted content systems that turn ideas into publish-ready media.',deliverables:['Higgsfield AI videos','Short-form video concepts','Scripts and storyboards','Product visuals','Social media content','Creative production workflows'],workflow:['IDEA','SCRIPT','VISUAL','EDIT','PUBLISH'],preview:'assets/services/ai-content.webp',alt:'Abstract AI product-video frame, storyboard, and production timeline',caption:'AI production system preview',build:'AI video and content production',example:{type:'demo',index:2}},
+  {category:'Digital advertising & campaigns',title:'Move attention toward action.',description:'Digital campaigns designed to attract attention and move people toward action.',deliverables:['Campaign strategy','TikTok, Meta, and Google ad concepts','Ad creative variations','Audience and offer positioning','Landing-page campaigns','Performance review and iteration'],workflow:['AUDIENCE','OFFER','CREATIVE','CAMPAIGN','ITERATE'],preview:'assets/services/digital-campaigns.webp',alt:'Abstract campaign layout with ad variations and landing-page preview',caption:'Campaign system preview',build:'Digital advertising and campaigns',example:{type:'demo',index:1}},
+  {category:'Websites & Shopify',title:'Create a clear path from visit to action.',description:'Purposeful web experiences for businesses that need clear messaging, useful customer paths, and maintainable content.',deliverables:['Business or campaign website','Shopify storefront structure','Landing pages and content sections'],workflow:['DISCOVER','STRUCTURE','DESIGN','BUILD','LAUNCH'],preview:null,build:'Website or Shopify store',example:{type:'demo',index:0}},
+  {category:'AI agents & custom GPT workflows',title:'Give repeatable work a practical AI system.',description:'Bounded assistants that organize knowledge, prompts, and repeatable tasks around a defined human workflow.',deliverables:['Custom GPT workflow','Prompt and knowledge architecture','Human approval checkpoints'],workflow:['TASK','KNOWLEDGE','PROMPT','REVIEW','USE'],preview:null,build:'AI agent or custom GPT workflow',example:{type:'demo',index:3}},
+  {category:'Business automation',title:'Connect the steps that slow work down.',description:'Connected processes that reduce repetitive handoffs while keeping important decisions visible to people.',deliverables:['Workflow map','API or no-code integrations','Failure and approval states'],workflow:['MAP','CONNECT','CHECK','AUTOMATE'],preview:null,build:'Business automation',example:{type:'demo',index:3}},
+  {category:'Applications & dashboards',title:'Make complex work easier to operate.',description:'Focused interfaces that make a task, process, or operational view easier to use and understand.',deliverables:['Interactive front-end prototype','Operational dashboard concept','Responsive application interface'],workflow:['DEFINE','PROTOTYPE','BUILD','TEST'],preview:null,build:'Application or dashboard',example:{type:'demo',index:3}},
+  {category:'IT support & AI implementation',title:'Put useful technology into practice.',description:'Practical technical help for teams adopting digital tools, troubleshooting systems, or introducing AI responsibly.',deliverables:['Implementation plan','Technical setup and documentation','Staff guidance and support workflow'],workflow:['ASSESS','SET UP','DOCUMENT','SUPPORT'],preview:null,build:'IT support or AI implementation',example:{type:'demo',index:3}}
 ];
 
 const demoDefinitions = [
@@ -194,6 +196,13 @@ const serviceTitle = document.querySelector('#service-title');
 const serviceDescription = document.querySelector('#service-description');
 const serviceDeliverables = document.querySelector('#service-deliverables');
 const buildSelect = document.querySelector('[name="build"]');
+['Digital advertising and campaigns','AI video and content production','Graphic design and brand assets'].forEach(label => {
+  if (![...buildSelect.options].some(option => option.value === label)) {
+    const option = document.createElement('option');
+    option.textContent = label;
+    buildSelect.insertBefore(option, buildSelect.options[1]);
+  }
+});
 let activeService = 0;
 let activeDemo = 0;
 
@@ -207,8 +216,25 @@ function selectService(index, focus = false) {
     button.tabIndex = selected ? 0 : -1;
   });
   document.querySelector('#service-index').textContent = `0${index + 1} / SERVICE`;
+  document.querySelector('#service-category').textContent = service.category;
+  serviceTitle.closest('.service-detail').dataset.serviceActive = index;
   serviceTitle.textContent = service.title;
   serviceDescription.textContent = service.description;
+  const preview = document.querySelector('#service-preview');
+  const previewFigure = preview.closest('.service-preview');
+  previewFigure.classList.toggle('service-preview-placeholder', !service.preview);
+  preview.hidden = !service.preview;
+  if (service.preview) {
+    preview.src = service.preview;
+    preview.alt = service.alt;
+  }
+  document.querySelector('#service-preview-caption').textContent = service.preview ? service.caption : `${service.category} system preview`;
+  document.querySelector('#service-workflow').replaceChildren(...service.workflow.map((step, stepIndex) => {
+    const item = document.createElement('span');
+    item.textContent = step;
+    if (stepIndex < service.workflow.length - 1) item.dataset.next = '→';
+    return item;
+  }));
   serviceDeliverables.replaceChildren(...service.deliverables.map(deliverable => {
     const item = document.createElement('li');
     item.textContent = deliverable;
