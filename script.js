@@ -174,7 +174,7 @@ addEventListener('keydown', event => {
 
 const services = [
   {title:'Websites and Shopify stores',description:'Purposeful web experiences for businesses that need clear messaging, useful customer paths, and maintainable content.',deliverables:['Business or campaign website','Shopify storefront structure','Landing pages and content sections'],build:'Website or Shopify store',example:{type:'demo',index:0}},
-  {title:'AI videos, ads, brochures, and social content',description:'A connected visual-content system shaped around the campaign, audience, format, and publishing workflow.',deliverables:['Short-form video concepts','Advertising and brochure creative','Reusable social-content directions'],build:'AI video or campaign content',example:{type:'demo',index:2}},
+  {title:'AI videos, ads, and social media content',description:'A connected visual-content system shaped around the campaign, audience, format, and publishing workflow.',deliverables:['Short-form video concepts','Advertising creative','Reusable social media content systems'],build:'AI video or campaign content',example:{type:'demo',index:2}},
   {title:'AI agents and custom GPT workflows',description:'Bounded assistants that organize knowledge, prompts, and repeatable tasks around a defined human workflow.',deliverables:['Custom GPT workflow','Prompt and knowledge architecture','Human approval checkpoints'],build:'AI agent or custom GPT workflow',example:{type:'demo',index:3}},
   {title:'Business automation',description:'Connected processes that reduce repetitive handoffs while keeping important decisions visible to people.',deliverables:['Workflow map','API or no-code integrations','Failure and approval states'],build:'Business automation',example:{type:'demo',index:3}},
   {title:'Simple applications and dashboards',description:'Focused interfaces that make a task, process, or operational view easier to use and understand.',deliverables:['Interactive front-end prototype','Operational dashboard concept','Responsive application interface'],build:'Application or dashboard',example:{type:'demo',index:3}},
@@ -255,7 +255,7 @@ const studioItems = [
   {category:'brand',name:'Identity system',detail:'Direction · typography · usage'},
   {category:'web',name:'Launch website',detail:'Structure · interface · responsive build'},
   {category:'campaign',name:'Campaign toolkit',detail:'Concept · formats · publishing system'},
-  {category:'brand',name:'Print direction',detail:'Brochure · presentation · collateral'},
+  {category:'brand',name:'Social content system',detail:'Platform formats · templates · publishing'},
   {category:'web',name:'Project archive',detail:'Filterable case-study experience'},
   {category:'campaign',name:'Social series',detail:'Templates · motion · content rhythm'}
 ];
