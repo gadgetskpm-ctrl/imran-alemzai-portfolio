@@ -4,7 +4,8 @@ html.av2-integrated body > header,
 html.av2-integrated body > .project-fab,
 html.av2-integrated #top > .hero,
 html.av2-integrated #top > .services,
-html.av2-integrated #top > .demos {
+html.av2-integrated #top > .demos,
+html.av2-integrated #top > .start-project {
   display: none !important;
 }
 

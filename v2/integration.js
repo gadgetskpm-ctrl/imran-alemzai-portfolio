@@ -2,7 +2,8 @@
   const locations = {
     shell: 'v2/shell/shell.html',
     services: 'v2/services/services.html',
-    demos: 'v2/demos/demos.html'
+    demos: 'v2/demos/demos.html',
+    contact: 'v2/contact/contact.html'
   };
 
   function fragment(markup) {
@@ -22,7 +23,7 @@
   }
 
   try {
-    const [shellMarkup, servicesMarkup, demosMarkup] = await Promise.all(
+    const [shellMarkup, servicesMarkup, demosMarkup, contactMarkup] = await Promise.all(
       Object.values(locations).map(async path => {
         const response = await fetch(path);
         if (!response.ok) throw new Error(`Unable to load ${path}: ${response.status}`);
@@ -33,32 +34,44 @@
     document.body.prepend(fragment(shellMarkup));
     document.querySelector('#top > .services')?.before(fragment(servicesMarkup));
     document.querySelector('#top > .demos')?.before(fragment(demosMarkup));
+    const legacyContact = document.querySelector('#top > .start-project');
+    legacyContact?.before(fragment(contactMarkup));
+    if (legacyContact) legacyContact.id = 'legacy-start-project';
     document.documentElement.classList.add('av2-integrated');
 
     document.addEventListener('alemzai:service-example', event => {
       const destinations = {
-        websites: 'food', shopify: 'food', content: 'studio', advertising: 'studio',
-        design: 'studio', automation: 'fitness', apps: 'fitness', it: 'barber'
+        websitesShopify: 'food', aiMedia: 'studio', design: 'studio',
+        aiAutomation: 'fitness', apps: 'fitness', it: 'barber'
       };
       document.querySelector(`[data-demo-select="${destinations[event.detail.key]}"]`)?.click();
       document.querySelector('#v2-demos')?.scrollIntoView({ block: 'start' });
     });
 
     document.addEventListener('alemzai:service-request', event => {
-      const select = document.querySelector('#project-form [name="build"]');
+      const select = document.querySelector('[data-contact-form] [name="build"]');
       const values = {
-        websites: 'Website or Shopify store', shopify: 'Website or Shopify store',
-        content: 'AI video or campaign content', advertising: 'AI video or campaign content',
-        design: 'AI video or campaign content', automation: 'Business automation',
+        websitesShopify: 'Website or Shopify store', aiMedia: 'AI video or digital advertising',
+        design: 'Graphic design or brand assets', aiAutomation: 'AI agent or automation',
         apps: 'Application or dashboard', it: 'IT support or AI implementation'
       };
       if (select) select.value = values[event.detail.key] || '';
       document.querySelector('#start-project')?.scrollIntoView({ block: 'start' });
     });
 
+    document.addEventListener('alemzai:request-build', event => {
+      const select = document.querySelector('[data-contact-form] [name="build"]');
+      const type = String(event.detail?.type || '').toLowerCase();
+      const value = type.includes('barber') || type.includes('food') || type.includes('studio')
+        ? 'Website or Shopify store'
+        : type.includes('fitness') ? 'Application or dashboard' : '';
+      if (select && value) select.value = value;
+    });
+
     await loadScript('v2/shell/shell.js');
     await loadScript('v2/services/services.js');
     await loadScript('v2/demos/demos.js');
+    await loadScript('v2/contact/contact.js');
   } catch (error) {
     document.documentElement.classList.remove('av2-integrated');
     console.error('Immersive V2 enhancement could not load.', error);
