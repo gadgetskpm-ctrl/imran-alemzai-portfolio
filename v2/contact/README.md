@@ -19,7 +19,7 @@ The public email fallback remains visible even if the endpoint fails. To use a d
 
 ## Telegram
 
-Set `data-telegram-url` to an approved public `https://t.me/...` or `https://telegram.me/...` URL. Until then, the control remains visibly disabled and makes no request. Never place a bot token in the page.
+The approved public Telegram contact is configured as `https://t.me/alemzaisystem`. The control opens the public profile in a separate tab with `noopener noreferrer`. Never place a bot token in the page.
 
 ## Public safety
 
