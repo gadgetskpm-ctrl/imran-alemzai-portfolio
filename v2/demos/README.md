@@ -10,3 +10,5 @@ This directory is an integration-ready, vanilla HTML/CSS/JavaScript module. It d
 4. Keep the existing `public/assets/demos/northline-barber/` directory at the same repository-relative path.
 
 The JavaScript uses `window.gsap` when available and remains functional without it. All state changes are immediate when `prefers-reduced-motion: reduce` is active.
+
+Every demo provides a `#start-project` link and also emits a bubbling `alemzai:request-build` event. Its `detail` contains the requested build `type` and the `applications-demo` source so the integrated project form can preselect or record the demo context.

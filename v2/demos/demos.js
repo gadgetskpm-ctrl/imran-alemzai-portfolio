@@ -65,7 +65,7 @@
           ${tabButtons(['service', 'time', 'details'], '', 'data-barber-state', 'Sample booking steps')}
           <div class="av2-barber__state" data-barber-panel>Choose a step to explore the front-end demonstration.</div>
           <div class="av2-status" role="status" data-status>No real appointment, payment, or confirmation is created.</div>
-          <button class="av2-action" type="button" data-demo-inquiry>Start a sample inquiry</button>
+          <a class="av2-action" href="#start-project" data-demo-request data-request-type="Northline Barber website">Request this build</a>
         </div>
         <figure class="av2-barber__media">
           <img class="is-active" data-barber-image="hero" src="public/assets/demos/northline-barber/hero-barber.webp" alt="Customer seated in the fictional Northline Barber studio" loading="eager" decoding="async" fetchpriority="high">
@@ -81,16 +81,16 @@
 
   function foodMarkup(filter = 'all') {
     const items = data.food.filter(item => filter === 'all' || item.type === filter);
-    return `<article class="av2-scene" data-scene="food"><div class="av2-scene__bar"><strong class="av2-scene__brand">Counter / 24</strong><span class="av2-scene__notice">Sample menu</span></div><h4>Fast menu.<br>Clear choices.</h4><p class="av2-scene__lead">Filter a fictional menu and move into a local inquiry state.</p>${tabButtons(['all','burgers','sides','drinks'], filter, 'data-food-filter', 'Menu categories')}<div class="av2-grid">${items.map(item => `<div class="av2-card"><b>${item.name}</b><span>${item.detail}</span><strong>${item.price}</strong></div>`).join('')}</div><button class="av2-action" type="button" data-demo-inquiry>Start a sample inquiry</button><div class="av2-status" role="status" data-status>Showing ${filter === 'all' ? 'all sample categories' : `sample ${filter}`}.</div></article>`;
+    return `<article class="av2-scene" data-scene="food"><div class="av2-scene__bar"><strong class="av2-scene__brand">Counter / 24</strong><span class="av2-scene__notice">Sample menu</span></div><h4>Fast menu.<br>Clear choices.</h4><p class="av2-scene__lead">Filter a fictional menu and move into a local inquiry state.</p>${tabButtons(['all','burgers','sides','drinks'], filter, 'data-food-filter', 'Menu categories')}<div class="av2-grid">${items.map(item => `<div class="av2-card"><b>${item.name}</b><span>${item.detail}</span><strong>${item.price}</strong></div>`).join('')}</div><a class="av2-action" href="#start-project" data-demo-request data-request-type="Fast-food website">Request this build</a><div class="av2-status" role="status" data-status>Showing ${filter === 'all' ? 'all sample categories' : `sample ${filter}`}.</div></article>`;
   }
 
   function studioMarkup(filter = 'all') {
     const items = data.studio.filter(item => filter === 'all' || item.type === filter);
-    return `<article class="av2-scene" data-scene="studio"><div class="av2-scene__bar"><strong class="av2-scene__brand">Form / Field Studio</strong><span class="av2-scene__notice">Fictional portfolio</span></div><h4>Design with<br>a working system.</h4><p class="av2-scene__lead">Explore sample creative directions by discipline.</p>${tabButtons(['all','brand','web','campaign'], filter, 'data-studio-filter', 'Portfolio filters')}<div class="av2-grid">${items.map(item => `<div class="av2-card"><b>${item.name}</b><span>${item.detail}</span></div>`).join('')}</div><button class="av2-action" type="button" data-demo-inquiry>Request a design inquiry</button><div class="av2-status" role="status" data-status>Showing ${filter === 'all' ? 'all fictional work' : `fictional ${filter} work`}.</div></article>`;
+    return `<article class="av2-scene" data-scene="studio"><div class="av2-scene__bar"><strong class="av2-scene__brand">Form / Field Studio</strong><span class="av2-scene__notice">Fictional portfolio</span></div><h4>Design with<br>a working system.</h4><p class="av2-scene__lead">Explore sample creative directions by discipline.</p>${tabButtons(['all','brand','web','campaign'], filter, 'data-studio-filter', 'Portfolio filters')}<div class="av2-grid">${items.map(item => `<div class="av2-card"><b>${item.name}</b><span>${item.detail}</span></div>`).join('')}</div><a class="av2-action" href="#start-project" data-demo-request data-request-type="Design studio website">Request this build</a><div class="av2-status" role="status" data-status>Showing ${filter === 'all' ? 'all fictional work' : `fictional ${filter} work`}.</div></article>`;
   }
 
   function fitnessMarkup(view = 'today') {
-    return `<article class="av2-scene" data-scene="fitness"><div class="av2-scene__bar"><strong class="av2-scene__brand">Form / Fitness</strong><span class="av2-scene__notice">App concept · sample data</span></div><h4>Your training.<br>One clear view.</h4><p class="av2-scene__lead">A mobile-style navigation concept for planning and reviewing workouts.</p><div class="av2-grid">${data.fitness[view].map(card => `<div class="av2-card"><b>${card[0]}</b><span>${card[1]}</span></div>`).join('')}</div><nav class="av2-mobile-nav" role="tablist" aria-label="Fitness app views">${['today','plans','progress','profile'].map(item => `<button type="button" role="tab" aria-selected="${item === view}" tabindex="${item === view ? 0 : -1}" data-fitness-view="${item}">${item}</button>`).join('')}</nav><div class="av2-status" role="status" data-status>${view[0].toUpperCase() + view.slice(1)} sample view selected.</div></article>`;
+    return `<article class="av2-scene" data-scene="fitness"><div class="av2-scene__bar"><strong class="av2-scene__brand">Form / Fitness</strong><span class="av2-scene__notice">App concept · sample data</span></div><h4>Your training.<br>One clear view.</h4><p class="av2-scene__lead">A mobile-style navigation concept for planning and reviewing workouts.</p><div class="av2-grid">${data.fitness[view].map(card => `<div class="av2-card"><b>${card[0]}</b><span>${card[1]}</span></div>`).join('')}</div><nav class="av2-mobile-nav" role="tablist" aria-label="Fitness app views">${['today','plans','progress','profile'].map(item => `<button type="button" role="tab" aria-selected="${item === view}" tabindex="${item === view ? 0 : -1}" data-fitness-view="${item}">${item}</button>`).join('')}</nav><a class="av2-action" href="#start-project" data-demo-request data-request-type="Fitness app concept">Request this build</a><div class="av2-status" role="status" data-status>${view[0].toUpperCase() + view.slice(1)} sample view selected.</div></article>`;
   }
 
   function animateIn(targets) {
@@ -152,7 +152,6 @@
     const studio = event.target.closest('[data-studio-filter]');
     const fitness = event.target.closest('[data-fitness-view]');
     const time = event.target.closest('[data-time]');
-    const inquiry = event.target.closest('[data-demo-inquiry]');
     if (barber) selectBarberState(barber.dataset.barberState);
     if (food) { stage.innerHTML = foodMarkup(food.dataset.foodFilter); animateIn(stage.querySelectorAll('.av2-card')); }
     if (studio) { stage.innerHTML = studioMarkup(studio.dataset.studioFilter); animateIn(stage.querySelectorAll('.av2-card')); }
@@ -161,10 +160,15 @@
       stage.querySelectorAll('[data-time]').forEach(button => button.setAttribute('aria-pressed', String(button === time)));
       stage.querySelector('[data-status]').textContent = `${time.textContent} selected as a sample preference. No appointment is reserved.`;
     }
-    if (inquiry) {
-      stage.querySelector('[data-status]').textContent = 'Inquiry state opened. This demonstration does not send data or create a booking.';
-      root.querySelector('[data-demo-request]').focus({ preventScroll: true });
-    }
+  });
+
+  root.addEventListener('click', event => {
+    const request = event.target.closest('[data-demo-request]');
+    if (!request) return;
+    root.dispatchEvent(new CustomEvent('alemzai:request-build', {
+      bubbles: true,
+      detail: { type: request.dataset.requestType || title.textContent, source: 'applications-demo' }
+    }));
   });
 
   stage.addEventListener('keydown', event => {

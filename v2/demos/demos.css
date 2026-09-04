@@ -16,7 +16,7 @@
 .av2-demos button, .av2-demos a { font: inherit; }
 .av2-demos button { color: inherit; }
 
-.av2-demos__heading { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.25fr); gap: 2rem 6vw; align-items: end; margin-bottom: clamp(2rem, 5vw, 4rem); }
+.av2-demos__heading { position: static; inset: auto; width: auto; height: auto; min-height: 0; display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.25fr); gap: 2rem 6vw; align-items: end; margin: 0 0 clamp(2rem, 5vw, 4rem); padding: 0; border: 0; transform: none; }
 .av2-demos__heading > p:first-child, .av2-demo__meta > p { color: var(--demo-acid); font: 700 .7rem/1.4 ui-monospace, SFMono-Regular, Consolas, monospace; text-transform: uppercase; letter-spacing: .08em; }
 .av2-demos__heading h2 { margin: 0; font-size: clamp(3.2rem, 8vw, 8.5rem); line-height: .82; letter-spacing: -.055em; text-transform: uppercase; }
 .av2-demos__heading > p:last-child { color: var(--demo-muted); max-width: 42rem; margin: 0; line-height: 1.6; }
@@ -49,7 +49,7 @@
 .av2-controls button { padding: .7rem .9rem; border: 1px solid var(--demo-line); background: transparent; cursor: pointer; text-transform: uppercase; font: 700 .63rem/1 ui-monospace, SFMono-Regular, Consolas, monospace; }
 .av2-controls button[aria-selected="true"], .av2-controls button[aria-pressed="true"] { color: var(--demo-acid); border-color: var(--demo-acid); }
 .av2-status { min-height: 3rem; margin-top: 1rem; border-left: 1px solid var(--demo-acid); padding: .55rem .9rem; color: #c6cdc5; font: .68rem/1.45 ui-monospace, SFMono-Regular, Consolas, monospace; }
-.av2-action { align-self: flex-start; margin-top: 1rem; border: 1px solid var(--demo-acid); padding: .8rem 1rem; background: transparent; cursor: pointer; text-transform: uppercase; font: 700 .65rem/1 ui-monospace, SFMono-Regular, Consolas, monospace; }
+.av2-action { align-self: flex-start; display: inline-flex; align-items: center; justify-content: center; margin-top: 1rem; border: 1px solid var(--demo-acid); padding: .8rem 1rem; color: var(--demo-ink); background: transparent; cursor: pointer; text-decoration: none; text-transform: uppercase; font: 700 .65rem/1 ui-monospace, SFMono-Regular, Consolas, monospace; }
 
 .av2-barber__layout { display: grid; grid-template-columns: minmax(15rem, .78fr) minmax(0, 1.22fr); gap: 1.5rem; flex: 1; }
 .av2-barber__copy { display: flex; flex-direction: column; min-width: 0; }
