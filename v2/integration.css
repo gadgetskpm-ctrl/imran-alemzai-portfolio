@@ -1,0 +1,25 @@
+html.av2-integrated body > .skip,
+html.av2-integrated body > .cursor,
+html.av2-integrated body > header,
+html.av2-integrated body > .project-fab,
+html.av2-integrated #top > .hero,
+html.av2-integrated #top > .services,
+html.av2-integrated #top > .demos {
+  display: none !important;
+}
+
+.av2-demos__heading {
+  position: static;
+  inset: auto;
+  z-index: auto;
+  width: auto;
+  height: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
