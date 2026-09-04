@@ -1,0 +1,87 @@
+<section class="ac-contact" id="start-project" aria-labelledby="contact-title" data-alemzai-contact data-form-endpoint="https://formsubmit.co/ajax/alemzai.systems@gmail.com" data-telegram-url="">
+  <div class="ac-contact__intro">
+    <p class="ac-contact__eyebrow">06 / Start a project</p>
+    <h2 id="contact-title">Have a system<br>in mind?</h2>
+    <p>Tell us what you want to build. Required fields help turn the first conversation into a useful project brief.</p>
+    <div class="ac-contact__direct" aria-label="Direct contact options">
+      <a class="ac-contact__email" href="mailto:alemzai.systems@gmail.com">alemzai.systems@gmail.com <span aria-hidden="true">↗</span></a>
+      <a class="ac-contact__telegram" href="#" aria-disabled="true" data-telegram-link>Telegram <span data-telegram-state>Not configured</span></a>
+    </div>
+    <p class="ac-contact__privacy">Your details are used only to respond to this project inquiry. Do not include passwords, API keys, or other sensitive information.</p>
+  </div>
+
+  <form class="ac-contact__form" data-contact-form novalidate>
+    <div class="ac-contact__field">
+      <label for="contact-name">Name <span aria-hidden="true">*</span></label>
+      <input id="contact-name" name="name" autocomplete="name" required maxlength="100">
+      <p class="ac-contact__error" id="contact-name-error"></p>
+    </div>
+    <div class="ac-contact__field">
+      <label for="contact-email">Email <span aria-hidden="true">*</span></label>
+      <input id="contact-email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="254">
+      <p class="ac-contact__error" id="contact-email-error"></p>
+    </div>
+    <div class="ac-contact__field">
+      <label for="contact-business">Business / project name <span aria-hidden="true">*</span></label>
+      <input id="contact-business" name="business" autocomplete="organization" required maxlength="120">
+      <p class="ac-contact__error" id="contact-business-error"></p>
+    </div>
+    <div class="ac-contact__field">
+      <label for="contact-build">What do you want to build? <span aria-hidden="true">*</span></label>
+      <select id="contact-build" name="build" required>
+        <option value="">Select a project type</option>
+        <option>Website or Shopify store</option>
+        <option>AI video or digital advertising</option>
+        <option>Graphic design or brand assets</option>
+        <option>AI agent or automation</option>
+        <option>Application or dashboard</option>
+        <option>IT support or AI implementation</option>
+        <option>Something else</option>
+      </select>
+      <p class="ac-contact__error" id="contact-build-error"></p>
+    </div>
+    <div class="ac-contact__field">
+      <label for="contact-timeline">Desired timeline <span aria-hidden="true">*</span></label>
+      <select id="contact-timeline" name="timeline" required>
+        <option value="">Select a timeline</option>
+        <option>As soon as practical</option>
+        <option>Within 1 month</option>
+        <option>1–3 months</option>
+        <option>3+ months</option>
+        <option>Not sure yet</option>
+      </select>
+      <p class="ac-contact__error" id="contact-timeline-error"></p>
+    </div>
+    <div class="ac-contact__field">
+      <label for="contact-budget">Budget range <span aria-hidden="true">*</span></label>
+      <select id="contact-budget" name="budget" required>
+        <option value="">Select a budget range</option>
+        <option>Under $1,000</option>
+        <option>$1,000–$3,000</option>
+        <option>$3,000–$7,500</option>
+        <option>$7,500+</option>
+        <option>Not sure yet</option>
+      </select>
+      <p class="ac-contact__error" id="contact-budget-error"></p>
+    </div>
+    <div class="ac-contact__field ac-contact__field--wide">
+      <label for="contact-description">Project description <span aria-hidden="true">*</span></label>
+      <textarea id="contact-description" name="description" rows="6" required minlength="20" maxlength="2000" aria-describedby="contact-description-help contact-description-count"></textarea>
+      <div class="ac-contact__help"><span id="contact-description-help">Include the goal, audience, and useful outcome.</span><span id="contact-description-count" data-description-count>0 / 2000</span></div>
+      <p class="ac-contact__error" id="contact-description-error"></p>
+    </div>
+
+    <div class="ac-contact__trap" aria-hidden="true">
+      <label for="contact-company-site">Leave this field empty</label>
+      <input id="contact-company-site" name="_honey" tabindex="-1" autocomplete="off">
+    </div>
+    <input type="hidden" name="_subject" value="New Alemzai Systems project inquiry">
+    <input type="hidden" name="_template" value="table">
+
+    <div class="ac-contact__actions ac-contact__field--wide">
+      <button type="submit" data-submit-button>Send project inquiry <span aria-hidden="true">↗</span></button>
+      <a href="mailto:alemzai.systems@gmail.com?subject=Alemzai%20Systems%20project%20inquiry">Use email instead</a>
+    </div>
+    <div class="ac-contact__status ac-contact__field--wide" role="status" aria-live="polite" aria-atomic="true" data-form-status>No inquiry has been sent.</div>
+  </form>
+</section>
