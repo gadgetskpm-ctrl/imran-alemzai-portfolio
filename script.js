@@ -259,8 +259,62 @@ serviceButtons.forEach((button, index) => {
   button.addEventListener('keydown', event => keyboardSelect(event, index, services.length, selectService));
 });
 
+const barberStates = {
+  hero: {
+    copy:'Explore a sample booking journey for a fictional barbershop.',
+    response:'Select Service, Time, or Details to explore the demonstration.'
+  },
+  service: {
+    copy:'Choose from clearly priced sample services before continuing.',
+    response:'Sample services selected. No appointment or payment is created.'
+  },
+  time: {
+    copy:'Review sample time windows in a calm, focused booking environment.',
+    response:'Sample time step selected. Availability is illustrative only.'
+  },
+  details: {
+    copy:'Review the service, preferred time, and contact fields before sending an inquiry.',
+    response:'Sample details step selected. This demo does not send personal information.'
+  }
+};
+
 function barberDemo() {
-  return `<div class="demo-ui barber-demo"><header><span class="demo-brand">Northline Barber</span><button class="outline-action demo-cta" data-demo-action="book">Book an appointment</button></header><h4>Look sharp.<br>Feel ready.</h4><p>A clean booking journey showing service, time, and inquiry states.</p><div class="micro-tabs" role="tablist" aria-label="Booking steps"><button class="active" data-micro="Choose a service">Service</button><button data-micro="Choose an available time">Time</button><button data-micro="Review contact details">Details</button></div><div class="demo-response" role="status">Choose a service to begin the demonstration.</div></div>`;
+  return `<div class="demo-ui barber-demo" data-barber-active="hero"><header><span class="demo-brand">Northline Barber</span><button class="outline-action demo-cta" data-demo-action="book">Book an appointment</button></header><div class="barber-layout"><section class="barber-copy"><span class="barber-label">FICTIONAL DEMO · SAMPLE PRICING</span><h4>Look sharp.<br>Feel ready.</h4><p id="barber-state-copy">${barberStates.hero.copy}</p><div class="micro-tabs" role="tablist" aria-label="Sample booking steps"><button role="tab" aria-selected="false" tabindex="0" data-barber-state="service">Service</button><button role="tab" aria-selected="false" tabindex="-1" data-barber-state="time">Time</button><button role="tab" aria-selected="false" tabindex="-1" data-barber-state="details">Details</button></div><div class="barber-state-panel" id="barber-state-panel"><p>Sample flow: choose a service → select a preferred time → review inquiry details.</p></div><div class="demo-response" role="status">${barberStates.hero.response}</div></section><figure class="barber-visual"><div class="barber-image-stage"><img class="active" data-barber-image="hero" src="public/assets/demos/northline-barber/hero-barber.webp" alt="Customer seated in the fictional Northline Barber studio" loading="eager" decoding="async" fetchpriority="high"><img data-barber-image="service" src="public/assets/demos/northline-barber/service-cut.webp" alt="Barber refining a customer's haircut in the Northline service preview" loading="lazy" decoding="async"><img data-barber-image="time" src="public/assets/demos/northline-barber/booking-space.webp" alt="Prepared barber chair illustrating the sample appointment-time step" loading="lazy" decoding="async"><img data-barber-image="details" src="public/assets/demos/northline-barber/shop-interior.webp" alt="Northline studio interior illustrating the sample booking-details step" loading="lazy" decoding="async"></div><img class="barber-secondary" src="public/assets/demos/northline-barber/grooming-tools.webp" alt="Comb, brush, scissors, towels, and grooming product arranged for a barber service" loading="lazy" decoding="async"><figcaption>Northline Barber · fictional visual demonstration</figcaption></figure></div></div>`;
+}
+
+function selectBarberState(state, focus = false) {
+  const demo = document.querySelector('.barber-demo');
+  if (!demo || !barberStates[state]) return;
+  const buttons = [...demo.querySelectorAll('[data-barber-state]')];
+  const images = [...demo.querySelectorAll('[data-barber-image]')];
+  const selectedButton = buttons.find(button => button.dataset.barberState === state);
+  const selectedImage = images.find(image => image.dataset.barberImage === state);
+  demo.dataset.barberActive = state;
+  buttons.forEach(button => {
+    const selected = button === selectedButton;
+    button.classList.toggle('active', selected);
+    button.setAttribute('aria-selected', String(selected));
+    button.tabIndex = selected ? 0 : -1;
+  });
+  images.forEach(image => {
+    const selected = image === selectedImage;
+    image.classList.toggle('active', selected);
+    image.setAttribute('aria-hidden', String(!selected));
+  });
+  document.querySelector('#barber-state-copy').textContent = barberStates[state].copy;
+  const panel = document.querySelector('#barber-state-panel');
+  panel.innerHTML = state === 'service'
+    ? '<div class="barber-prices"><span>Signature Cut <b>$35</b></span><span>Skin Fade <b>$40</b></span><span>Beard Sculpt <b>$25</b></span><span>Cut + Beard <b>$55</b></span></div><small>Sample prices · demonstration only</small>'
+    : state === 'time'
+      ? '<div class="barber-times"><span>Morning</span><span>Afternoon</span><span>Evening</span></div><small>Sample time windows · no live availability</small>'
+      : '<p>Sample review: service choice, preferred time, and inquiry details.</p><small>No booking is submitted from this demonstration</small>';
+  document.querySelector('#demo-stage .demo-response').textContent = barberStates[state].response;
+  if (focus && selectedButton) selectedButton.focus();
+  if (window.gsap && !reducedMotion && selectedImage) {
+    gsap.set(images.filter(image => image !== selectedImage), {autoAlpha:0, scale:1, clipPath:'inset(0 0 0 0)'});
+    gsap.fromTo(selectedImage, {autoAlpha:0, scale:1.025, clipPath:'inset(0 7% 0 0)'}, {autoAlpha:1, scale:1, clipPath:'inset(0 0 0 0)', duration:.45, ease:'portfolio', clearProps:'transform,clipPath'});
+    gsap.fromTo(['#barber-state-copy','#barber-state-panel'], {autoAlpha:.65, y:6}, {autoAlpha:1, y:0, duration:.28, stagger:.04, ease:'portfolio', clearProps:'transform,opacity,visibility'});
+  }
 }
 
 const foodItems = [
@@ -334,15 +388,12 @@ document.querySelector('#request-service').addEventListener('click', () => {
 });
 
 document.querySelector('#demo-stage').addEventListener('click', event => {
-  const micro = event.target.closest('[data-micro]');
+  const barber = event.target.closest('[data-barber-state]');
   const food = event.target.closest('[data-food-filter]');
   const studio = event.target.closest('[data-studio-filter]');
   const fitness = event.target.closest('[data-fitness-view]');
   const action = event.target.closest('[data-demo-action]');
-  if (micro) {
-    document.querySelectorAll('[data-micro]').forEach(button => button.classList.toggle('active', button === micro));
-    document.querySelector('#demo-stage .demo-response').textContent = micro.dataset.micro + '. This front-end demo does not submit a booking.';
-  }
+  if (barber) selectBarberState(barber.dataset.barberState);
   if (food) document.querySelector('#demo-stage').innerHTML = fastFoodDemo(food.dataset.foodFilter);
   if (studio) document.querySelector('#demo-stage').innerHTML = studioDemo(studio.dataset.studioFilter);
   if (fitness) document.querySelector('#demo-stage').innerHTML = fitnessDemo(fitness.dataset.fitnessView);
@@ -350,6 +401,13 @@ document.querySelector('#demo-stage').addEventListener('click', event => {
     const response = document.querySelector('#demo-stage .demo-response');
     response.textContent = 'Demo inquiry state opened. No information was sent.';
   }
+});
+
+document.querySelector('#demo-stage').addEventListener('keydown', event => {
+  const button = event.target.closest('[data-barber-state]');
+  if (!button) return;
+  const buttons = [...document.querySelectorAll('.barber-demo [data-barber-state]')];
+  keyboardSelect(event, buttons.indexOf(button), buttons.length, index => selectBarberState(buttons[index].dataset.barberState, true));
 });
 
 const form = document.querySelector('#project-form');
