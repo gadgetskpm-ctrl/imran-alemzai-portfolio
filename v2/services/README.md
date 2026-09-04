@@ -1,6 +1,6 @@
 # Alemzai Services module
 
-This module is a self-contained HTML, CSS, and JavaScript services interface. It does not load fonts, images, trackers, or other network resources.
+This module is a self-contained HTML, CSS, and JavaScript interface for six service categories: Websites and Shopify; AI videos and digital ads; Graphic design and brand assets; AI agents and automation; Applications and dashboards; and IT support and AI implementation. It does not load fonts, images, trackers, or other network resources.
 
 ## Integration
 
