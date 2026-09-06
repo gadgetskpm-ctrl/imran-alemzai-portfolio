@@ -1,13 +1,28 @@
-(() => {
-  const root = document.querySelector('[data-demos-root]');
-  if (!root || root.dataset.ready === 'true') return;
+(function alemzaiDemosModule(global) {
+  'use strict';
+  const instances = new WeakMap();
+
+  function init(root) {
+  if (!root) return null;
+  if (instances.has(root)) return instances.get(root);
+  const motion = global.AlemzaiMotion;
+  const context = motion?.createContext?.('demos');
+  const cleanups = [];
+  const animations = new Set();
+  const tokens = motion?.tokens || global.AlemzaiMotionTokens || { duration: { fast: .2, base: .45 }, distance: { near: 8 } };
+  const listen = context?.listen ? context.listen.bind(context) : (target, type, handler, options) => {
+    target?.addEventListener(type, handler, options);
+    const remove = () => target?.removeEventListener(type, handler, options);
+    cleanups.push(remove);
+    return remove;
+  };
+  function cancelAnimations() { animations.forEach(animation => animation.cancel()); animations.clear(); }
   root.dataset.ready = 'true';
 
   const stage = root.querySelector('[data-demo-stage]');
   const title = root.querySelector('[data-demo-name]');
   const format = root.querySelector('[data-demo-format]');
   const mainTabs = [...root.querySelectorAll('[data-demo-select]')];
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   const definitions = {
     barber: { name: 'Northline Barber', format: 'Booking website' },
@@ -94,8 +109,13 @@
   }
 
   function animateIn(targets) {
-    if (reduceMotion.matches || !window.gsap) return;
-    window.gsap.fromTo(targets, { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: .34, stagger: .035, ease: 'power2.out', clearProps: 'opacity,visibility,transform' });
+    if (motion?.isReduced?.() !== false) return;
+    [...targets].forEach((target, index) => {
+      if (!target?.animate) return;
+      const animation = target.animate([{ opacity: 0, transform: `translateY(${tokens.distance.near}px)` }, { opacity: 1, transform: 'translateY(0)' }], { duration: tokens.duration.fast * 1500, delay: index * 28, easing: 'cubic-bezier(.22,1,.36,1)' });
+      animations.add(animation);
+      animation.finished.catch(() => {}).finally(() => animations.delete(animation));
+    });
   }
 
   function renderDemo(key, focus = false) {
@@ -128,8 +148,10 @@
     scene.querySelector('[data-barber-copy]').textContent = setting.copy;
     scene.querySelector('[data-barber-panel]').innerHTML = setting.panel;
     scene.querySelector('[data-status]').textContent = setting.response;
-    if (!reduceMotion.matches && window.gsap) {
-      window.gsap.fromTo(selected, { autoAlpha: 0, scale: 1.025, clipPath: 'inset(0 7% 0 0)' }, { autoAlpha: 1, scale: 1, clipPath: 'inset(0 0 0 0)', duration: .42, ease: 'power2.out', clearProps: 'transform,clipPath' });
+    if (motion?.isReduced?.() === false && selected?.animate) {
+      const animation = selected.animate([{ opacity: 0, transform: 'scale(1.018)', clipPath: 'inset(0 5% 0 0)' }, { opacity: 1, transform: 'scale(1)', clipPath: 'inset(0)' }], { duration: tokens.duration.base * 800, easing: 'cubic-bezier(.22,1,.36,1)' });
+      animations.add(animation);
+      animation.finished.catch(() => {}).finally(() => animations.delete(animation));
       animateIn([scene.querySelector('[data-barber-copy]'), scene.querySelector('[data-barber-panel]')]);
     }
   }
@@ -143,10 +165,10 @@
     callback(buttons[next]);
   }
 
-  mainTabs.forEach(button => button.addEventListener('click', () => renderDemo(button.dataset.demoSelect, true)));
-  root.querySelector('.av2-demos__selector').addEventListener('keydown', event => selectRoving(event, mainTabs, button => renderDemo(button.dataset.demoSelect)));
+  mainTabs.forEach(button => listen(button, 'click', () => renderDemo(button.dataset.demoSelect, true)));
+  listen(root.querySelector('.av2-demos__selector'), 'keydown', event => selectRoving(event, mainTabs, button => renderDemo(button.dataset.demoSelect)));
 
-  stage.addEventListener('click', event => {
+  listen(stage, 'click', event => {
     const barber = event.target.closest('[data-barber-state]');
     const food = event.target.closest('[data-food-filter]');
     const studio = event.target.closest('[data-studio-filter]');
@@ -162,7 +184,7 @@
     }
   });
 
-  root.addEventListener('click', event => {
+  listen(root, 'click', event => {
     const request = event.target.closest('[data-demo-request]');
     if (!request) return;
     root.dispatchEvent(new CustomEvent('alemzai:request-build', {
@@ -171,12 +193,31 @@
     }));
   });
 
-  stage.addEventListener('keydown', event => {
+  listen(stage, 'keydown', event => {
     const container = event.target.closest('[role="tablist"]');
     if (!container) return;
     const buttons = [...container.querySelectorAll('[role="tab"]')];
     selectRoving(event, buttons, button => button.click());
   });
 
+  if (typeof motion?.onReducedChange === 'function') {
+    const dispose = motion.onReducedChange(cancelAnimations);
+    if (context?.add) context.add(dispose); else cleanups.push(dispose);
+  }
   renderDemo('barber');
-})();
+  const api = { render: renderDemo, destroy() {
+    cancelAnimations();
+    context?.destroy?.();
+    cleanups.splice(0).forEach(cleanup => typeof cleanup === 'function' && cleanup());
+    delete root.dataset.ready;
+    instances.delete(root);
+  } };
+  instances.set(root, api);
+  return api;
+  }
+
+  function initAll(scope) { return [...(scope || document).querySelectorAll('[data-demos-root]')].map(init); }
+  function destroyAll(scope) { [...(scope || document).querySelectorAll('[data-demos-root]')].forEach(root => instances.get(root)?.destroy()); }
+  global.AlemzaiDemos = { init, initAll, destroyAll };
+  initAll();
+}(window));

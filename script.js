@@ -1,3 +1,5 @@
+/* Legacy enhancement is retained solely for the static fallback page. */
+if (!document.documentElement.classList.contains('av2-integrated')) {
 const motionQuery = matchMedia('(prefers-reduced-motion: reduce)');
 const reducedMotion = motionQuery.matches;
 const finePointer = matchMedia('(pointer: fine)').matches;
@@ -540,4 +542,5 @@ if (window.gsap) {
       gsap.from(element, {y:28, autoAlpha:0, duration:.7, ease:'portfolio', scrollTrigger:{trigger:element, start:'top 88%', once:true}});
     });
   });
+}
 }

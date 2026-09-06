@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="av2-integrated">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -20,26 +20,276 @@
   <link rel="stylesheet" href="v2/contact/telegram.css">
   <link rel="stylesheet" href="v2/integration.css">
   <script src="vendor/gsap/gsap.min.js" defer></script>
-  <script src="vendor/gsap/SplitText.min.js" defer></script>
   <script src="vendor/gsap/ScrollTrigger.min.js" defer></script>
+  <script src="vendor/gsap/ScrollSmoother.min.js" defer></script>
+  <script src="vendor/gsap/SplitText.min.js" defer></script>
   <script src="vendor/gsap/CustomEase.min.js" defer></script>
   <script src="vendor/gsap/MotionPathPlugin.min.js" defer></script>
   <script src="vendor/gsap/Observer.min.js" defer></script>
-  <script src="script.js" defer></script>
+  <script src="v2/motion/tokens.js" defer></script>
+  <script src="v2/motion/scheduler.js" defer></script>
+  <script src="v2/motion/hero-canvas.js" defer></script>
+  <script src="v2/motion/controller.js" defer></script>
+  <script src="v2/motion/choreography.js" defer></script>
+  <script src="v2/shell/shell.js" defer></script>
+  <script src="v2/services/services.js" defer></script>
+  <script src="v2/demos/demos.js" defer></script>
+  <script src="v2/contact/contact.js" defer></script>
   <script src="v2/integration.js" defer></script>
 </head>
 <body>
+<!-- Alemzai V2 immersive shell: copy this fragment inside <body>. -->
+<div class="av2-shell" data-av2-shell>
+  <a class="av2-skip" href="#av2-main">Skip to studio content</a>
+
+  <header class="av2-header" data-av2-header>
+    <a class="av2-mark" href="#av2-top" aria-label="Alemzai Systems, home">
+      <span>ALEMZAI</span><small>SYSTEMS</small>
+    </a>
+    <p class="av2-status"><i aria-hidden="true"></i> Creative technology studio</p>
+    <button class="av2-menu-button" type="button" aria-expanded="false" aria-controls="av2-menu">
+      <span>Menu</span><i aria-hidden="true"></i>
+    </button>
+  </header>
+
+  <nav class="av2-menu" id="av2-menu" aria-label="Studio navigation" aria-hidden="true">
+    <div class="av2-menu-meta" aria-hidden="true">
+      <span>Navigation system</span><span>06 destinations</span>
+    </div>
+    <ol>
+      <li><a href="#av2-top"><span>01</span>Home</a></li>
+      <li><a href="#services-v2"><span>02</span>Services</a></li>
+      <li><a href="#v2-demos"><span>03</span>Demos</a></li>
+      <li><a href="#about"><span>04</span>The studio</a></li>
+      <li><a href="#approach"><span>05</span>Approach</a></li>
+      <li><a href="#start-project"><span>06</span>Start a project</a></li>
+    </ol>
+  </nav>
+
+  <div data-smooth-wrapper>
+    <div data-smooth-content>
+  <div id="av2-main">
+    <section class="av2-hero" id="av2-top" aria-labelledby="av2-title">
+      <div class="av2-hero-copy">
+        <p class="av2-kicker">Independent creative technology studio</p>
+        <h1 id="av2-title"><span>Systems for</span><span>ideas that</span><span>move<i>.</i></span></h1>
+        <p class="av2-intro">AI, web, automation, media, applications, and IT—shaped into practical systems for modern businesses.</p>
+        <div class="av2-actions">
+          <a class="av2-primary" href="#services-v2">Explore systems <span aria-hidden="true">↗</span></a>
+          <a class="av2-secondary" href="#start-project">Start a project</a>
+        </div>
+      </div>
+
+      <div class="av2-system-stage" aria-hidden="true">
+        <canvas data-av2-field></canvas>
+        <div class="av2-stage-label"><span>Live capability map</span><b data-av2-signal>AI / 01</b></div>
+      </div>
+
+      <dl class="av2-hero-meta">
+        <div><dt>Mode</dt><dd>Design + build</dd></div>
+        <div><dt>Input</dt><dd>Pointer / scroll</dd></div>
+        <div><dt>Output</dt><dd>Working systems</dd></div>
+      </dl>
+      <p class="av2-scroll-cue">Scroll to explore <i aria-hidden="true"></i></p>
+    </section>
+  </div>
+
   <a class="skip" href="#services">Skip to services</a><div class="cursor" aria-hidden="true"></div>
   <header><a class="mark" href="#top" aria-label="Alemzai, home">ALEMZAI</a><nav id="primary-nav" aria-label="Primary"><a href="#services">Services</a><a href="#demos">Demos</a><a href="#about">About</a></nav><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button><a class="outline start-project-link" href="#start-project">Start a project ↗</a></header>
   <a class="project-fab start-project-link" href="#start-project">Start a project <span>↗</span></a>
   <main id="top">
     <section class="hero"><span class="rail">01</span><div class="hero-copy reveal"><h1>Systems for<br>ideas that<br>move<span>.</span></h1><p>AI systems, digital experiences, automation, and campaigns—designed to turn attention into action.</p><div class="hero-actions"><a class="button" href="#services">Explore services ↗</a><a class="text-link start-project-link" href="#start-project">Start a project</a></div></div><div class="hero-art" aria-hidden="true"><canvas id="field"></canvas><i class="cross a"></i><i class="cross b"></i></div><small>Scroll <i></i></small></section>
+<section class="as-services" id="services-v2" aria-labelledby="services-v2-title" data-alemzai-services>
+  <div class="as-services__heading">
+    <span class="as-services__index" aria-hidden="true">02</span>
+    <div>
+      <p class="as-services__eyebrow">Capabilities / Systems</p>
+      <h2 id="services-v2-title">Services built<br>for action.</h2>
+    </div>
+    <p class="as-services__intro">Focused digital systems for businesses, creators, and growing teams—from the first useful idea to a working launch.</p>
+  </div>
+
+  <div class="as-services__interface">
+    <div class="as-services__tabs" role="tablist" aria-label="Services">
+      <button class="is-active" id="service-tab-websites-shopify" type="button" role="tab" aria-selected="true" aria-controls="service-panel" tabindex="0" data-service-key="websitesShopify"><span>01</span>Websites and Shopify</button>
+      <button id="service-tab-ai-media" type="button" role="tab" aria-selected="false" aria-controls="service-panel" tabindex="-1" data-service-key="aiMedia"><span>02</span>AI videos and digital ads</button>
+      <button id="service-tab-design" type="button" role="tab" aria-selected="false" aria-controls="service-panel" tabindex="-1" data-service-key="design"><span>03</span>Graphic design and brand assets</button>
+      <button id="service-tab-ai-automation" type="button" role="tab" aria-selected="false" aria-controls="service-panel" tabindex="-1" data-service-key="aiAutomation"><span>04</span>AI agents and automation</button>
+      <button id="service-tab-apps" type="button" role="tab" aria-selected="false" aria-controls="service-panel" tabindex="-1" data-service-key="apps"><span>05</span>Applications and dashboards</button>
+      <button id="service-tab-it" type="button" role="tab" aria-selected="false" aria-controls="service-panel" tabindex="-1" data-service-key="it"><span>06</span>IT support and AI implementation</button>
+    </div>
+
+    <article class="as-services__panel" id="service-panel" role="tabpanel" aria-labelledby="service-tab-websites-shopify" tabindex="0">
+      <div class="as-services__copy">
+        <p class="as-services__meta" data-service-meta>01 / Digital experience</p>
+        <h3 data-service-title>Websites and stores built around clear journeys.</h3>
+        <p class="as-services__position" data-service-position>Responsive websites and Shopify storefronts that organize content, products, and customer actions into a coherent experience.</p>
+        <div class="as-services__deliverables">
+          <h4>Example deliverables</h4>
+          <ul data-service-deliverables>
+            <li>Responsive business websites</li>
+            <li>Shopify storefront configuration</li>
+            <li>Landing and product page systems</li>
+            <li>Accessibility and launch review</li>
+          </ul>
+        </div>
+        <div class="as-services__actions">
+          <button type="button" class="as-services__action as-services__action--outline" data-service-example>View example <span aria-hidden="true">↗</span></button>
+          <button type="button" class="as-services__action as-services__action--primary" data-service-request>Request this service <span aria-hidden="true">↗</span></button>
+        </div>
+      </div>
+
+      <div class="as-services__visual" aria-hidden="true" data-service-visual>
+        <div class="as-services__visual-grid"></div>
+        <div class="as-services__diagram" data-service-diagram>
+          <i></i><i></i><i></i><i></i>
+        </div>
+        <p data-service-code>WEB / 01</p>
+      </div>
+    </article>
+  </div>
+  <p class="as-services__status" role="status" aria-live="polite" data-service-status></p>
+</section>
+
     <section class="services" id="services" aria-labelledby="services-title"><div class="heading client-reveal"><span>02</span><h2 id="services-title">Services</h2><p>Practical builds for businesses, creators, and teams that need a clearer digital system.</p></div><div class="service-interface"><div class="service-list" role="tablist" aria-label="Services"><button class="active" type="button" role="tab" aria-selected="true" data-service="0"><span>01</span>Graphic design &amp; brand assets</button><button type="button" role="tab" aria-selected="false" data-service="1"><span>02</span>AI video &amp; content production</button><button type="button" role="tab" aria-selected="false" data-service="2"><span>03</span>Digital advertising &amp; campaigns</button><button type="button" role="tab" aria-selected="false" data-service="3"><span>04</span>Websites and Shopify stores</button><button type="button" role="tab" aria-selected="false" data-service="4"><span>05</span>AI agents and custom GPT workflows</button><button type="button" role="tab" aria-selected="false" data-service="5"><span>06</span>Business automation</button><button type="button" role="tab" aria-selected="false" data-service="6"><span>07</span>Simple applications and dashboards</button><button type="button" role="tab" aria-selected="false" data-service="7"><span>08</span>IT support and AI implementation</button></div><article class="service-detail client-reveal" role="tabpanel" aria-live="polite"><span id="service-index">01 / SERVICE</span><p class="service-category" id="service-category"></p><h3 id="service-title"></h3><p id="service-description"></p><figure class="service-preview"><img id="service-preview" src="assets/services/graphic-design.webp" alt="Abstract graphic design and brand asset mockups" width="1200" height="768"><figcaption id="service-preview-caption">Brand asset system preview</figcaption></figure><div class="service-lower"><div class="deliverables"><b>Example deliverables</b><ul id="service-deliverables"></ul></div><div class="service-workflow"><b>System flow</b><div id="service-workflow" aria-label="Service workflow"></div></div></div><div class="service-actions"><button class="outline-action" id="view-service-example" type="button">View an example ↗</button><a class="button" id="request-service" href="#start-project">Request this service ↗</a></div></article></div></section>
+<section class="av2-demos" id="v2-demos" aria-labelledby="v2-demos-title" data-demos-root>
+  <div class="av2-demos__heading">
+    <p>Interactive demonstrations</p>
+    <h2 id="v2-demos-title">Working ideas.<br>Made visible.</h2>
+    <p>Four front-end demonstrations using fictional content and sample data. No payment, account, or booking is created.</p>
+  </div>
+
+  <div class="av2-demos__selector" role="tablist" aria-label="Choose a demonstration">
+    <button type="button" role="tab" aria-selected="true" aria-controls="av2-demo-panel" tabindex="0" data-demo-select="barber"><span>01</span>Northline Barber</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="av2-demo-panel" tabindex="-1" data-demo-select="food"><span>02</span>Fast food</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="av2-demo-panel" tabindex="-1" data-demo-select="studio"><span>03</span>Design studio</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="av2-demo-panel" tabindex="-1" data-demo-select="fitness"><span>04</span>Fitness app</button>
+  </div>
+
+  <div class="av2-demo" id="av2-demo-panel" role="tabpanel" tabindex="0" aria-live="polite">
+    <aside class="av2-demo__meta">
+      <p>Active demonstration</p>
+      <h3 data-demo-name>Northline Barber</h3>
+      <dl>
+        <div><dt>Format</dt><dd data-demo-format>Booking website</dd></div>
+        <div><dt>Status</dt><dd>Front-end only</dd></div>
+        <div><dt>Input</dt><dd>Pointer · touch · keyboard</dd></div>
+      </dl>
+      <a href="#start-project" data-demo-request>Request a similar build <span aria-hidden="true">↗</span></a>
+    </aside>
+    <div class="av2-demo__viewport" data-demo-stage>
+      <article class="av2-scene"><h4>Northline Barber</h4><p>A fictional booking-website demonstration. Interactive states become available when JavaScript is running.</p></article>
+    </div>
+  </div>
+</section>
+
     <section class="demos" id="demos" aria-labelledby="demos-title"><div class="heading client-reveal"><span>03</span><h2 id="demos-title">Demo work</h2><p>Front-end proof of capability. No backend, payments, authentication, or production data.</p></div><div class="demo-tabs" role="tablist" aria-label="Demo projects"><button class="active" type="button" role="tab" aria-selected="true" data-demo="0"><span>01</span>Barber shop</button><button type="button" role="tab" aria-selected="false" data-demo="1"><span>02</span>Fast food</button><button type="button" role="tab" aria-selected="false" data-demo="2"><span>03</span>Design studio</button><button type="button" role="tab" aria-selected="false" data-demo="3"><span>04</span>Fitness app</button></div><div class="demo-shell client-reveal"><aside class="demo-meta"><span>ACTIVE DEMO</span><h3 id="demo-name">Barber shop website</h3><dl><div><dt>Type</dt><dd id="demo-type">Responsive website</dd></div><div><dt>State</dt><dd>Front-end only</dd></div><div><dt>Input</dt><dd>Pointer / touch / keyboard</dd></div></dl><a class="text-link start-project-link" href="#start-project">Start a similar project</a></aside><div class="demo-browser" role="tabpanel" aria-live="polite"><div class="browser-bar"><i></i><i></i><i></i><span id="demo-address">preview.local/barber</span><b>DEMO</b></div><div class="demo-stage" id="demo-stage"></div></div></div></section>
     <section class="about studio" id="about" aria-labelledby="about-title"><div class="heading client-reveal"><span>04</span><h2 id="about-title">The Studio</h2><p>Creative technology practice</p></div><div class="studio-intro client-reveal"><h3>Alemzai builds digital systems for businesses that want to move faster.</h3><p>We combine AI, design, automation, web technology, creative production, and IT support to turn business ideas into useful working systems.</p></div><div class="capability-engine client-reveal" aria-label="Interactive capability engine"><svg class="engine-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M50 50 L18 18 M50 50 L50 12 M50 50 L82 18 M50 50 L18 82 M50 50 L50 88 M50 50 L82 82"></path></svg><div class="engine-core" aria-hidden="true">A</div><div class="engine-nodes" role="list"><button type="button" class="active" data-capability="0" aria-pressed="true">AI</button><button type="button" data-capability="1" aria-pressed="false">WEB</button><button type="button" data-capability="2" aria-pressed="false">AUTOMATION</button><button type="button" data-capability="3" aria-pressed="false">MEDIA</button><button type="button" data-capability="4" aria-pressed="false">APPS</button><button type="button" data-capability="5" aria-pressed="false">IT</button></div><div class="engine-detail" aria-live="polite"><span id="capability-index">01 / AI</span><p id="capability-description"></p><b>Related deliverables</b><p id="capability-deliverables"></p></div></div><div class="capability-strip client-reveal" aria-label="Factual capabilities"><span>Custom GPT systems</span><span>Marketing automation</span><span>Websites and Shopify</span><span>AI video production</span><span>Business app concepts</span><span>IT support workflows</span></div><div class="studio-panel client-reveal"><div><span>STUDIO PRINCIPLE</span><p>Useful technology should feel clear, human, and built for action.</p></div><div><span>WHO WE HELP</span><p>Small businesses, creators, and growing teams that need digital execution without unnecessary complexity.</p></div><div><span>WHAT WE DELIVER</span><p>From the first idea to the working system: design, build, launch, and iteration.</p></div></div><a class="studio-cta button start-project-link" href="#start-project">Have a system in mind? Start a project →</a></section>
     <section class="approach" id="approach" aria-labelledby="approach-title"><div class="heading reveal"><span>05</span><h2 id="approach-title">How I work</h2><p>Plan every move before execution.<br>Build with clear checkpoints and evidence.</p></div><ol><li class="reveal"><b>01 / DISCOVER</b><h3>Understand</h3><p>Define the business goal, audience, constraints, and measure of success.</p><small>Output · Project brief</small></li><li class="reveal"><b>02 / PLAN</b><h3>Map</h3><p>Set scope, priorities, milestones, responsibilities, risks, and approval points.</p><small>Output · Delivery roadmap</small></li><li class="reveal"><b>03 / DESIGN</b><h3>Prototype</h3><p>Shape the system, content, interface, and workflow before full production begins.</p><small>Output · Approved direction</small></li><li class="reveal"><b>04 / EXECUTE</b><h3>Build</h3><p>Develop the agreed solution in focused stages with visible progress reviews.</p><small>Output · Working build</small></li><li class="reveal"><b>05 / VERIFY</b><h3>Validate</h3><p>Test usability, accessibility, performance, content, and edge cases against the plan.</p><small>Output · QA sign-off</small></li><li class="reveal"><b>06 / DELIVER</b><h3>Launch</h3><p>Release carefully, document the system, and define the next improvement cycle.</p><small>Output · Launch package</small></li></ol></section>
-    <section class="start-project" id="start-project" aria-labelledby="start-project-title"><div class="project-intro client-reveal"><span>06 / INQUIRY</span><h2 id="start-project-title">Start a project</h2><p>Share the system you want to build. The form validates locally and only sends when a form endpoint has been configured.</p><div class="configuration"><b>Configuration status</b><p id="contact-fallback">Email fallback: not configured.</p><p id="booking-fallback">Booking link: not configured.</p></div></div><form id="project-form" novalidate><label>Name<input name="name" autocomplete="name" required></label><label>Email<input name="email" type="email" autocomplete="email" required></label><label>Business/project name<input name="business" autocomplete="organization" required></label><label>What do you want to build?<select name="build" required><option value="">Select a project type</option><option>Website or Shopify store</option><option>AI video or campaign content</option><option>AI agent or custom GPT workflow</option><option>Business automation</option><option>Application or dashboard</option><option>IT support or AI implementation</option></select></label><label>Desired timeline<select name="timeline" required><option value="">Select a timeline</option><option>As soon as practical</option><option>Within 1 month</option><option>1–3 months</option><option>3+ months</option><option>Not sure yet</option></select></label><label>Budget range<select name="budget" required><option value="">Select a budget range</option><option>Under $1,000</option><option>$1,000–$3,000</option><option>$3,000–$7,500</option><option>$7,500+</option><option>Not sure yet</option></select></label><label class="wide">Project description<textarea name="description" rows="5" maxlength="2000" required placeholder="Describe the goal, audience, and what a successful build should help you do."></textarea><small><span id="description-count">0</span> / 2000</small></label><div class="form-actions wide"><button class="button" type="submit">Start a project ↗</button><a class="outline-action booking-link" href="#" aria-disabled="true">Book a conversation ↗</a></div><div class="form-status wide" id="form-status" role="status" aria-live="polite">No inquiry submitted yet.</div></form></section>
+<section class="ac-contact" id="start-project" aria-labelledby="contact-title" data-alemzai-contact data-form-endpoint="https://formspree.io/f/mppzlkan" data-telegram-url="https://t.me/ALEMZAISYSTEMS">
+  <div class="ac-contact__intro">
+    <p class="ac-contact__eyebrow">06 / Start a project</p>
+    <h2 id="contact-title">Have a system<br>in mind?</h2>
+    <p>Tell us what you want to build. Required fields help turn the first conversation into a useful project brief.</p>
+    <div class="ac-contact__direct" aria-label="Direct contact options">
+      <div class="ac-contact__telegram-block">
+        <a class="ac-contact__telegram" href="#" aria-disabled="true" data-telegram-link>Message on Telegram ↗ <span data-telegram-state>Not configured</span></a>
+        <div class="ac-contact__telegram-qr">
+          <span>QR / TELEGRAM</span>
+          <img src="public/assets/contact/telegram-qr.svg" width="176" height="176" alt="QR code opening the Alemzai Systems Telegram contact">
+          <b>@ALEMZAISYSTEMS</b>
+          <small>Scan to open Telegram</small>
+        </div>
+      </div>
+      <a class="ac-contact__email" href="mailto:alemzai.systems@gmail.com">alemzai.systems@gmail.com <span aria-hidden="true">↗</span></a>
+    </div>
+    <p class="ac-contact__privacy">Your details are used only to respond to this project inquiry. Do not include passwords, API keys, or other sensitive information.</p>
+  </div>
+
+  <form class="ac-contact__form" action="https://formspree.io/f/mppzlkan" method="POST" accept-charset="UTF-8" data-contact-form novalidate>
+    <div class="ac-contact__field">
+      <label for="contact-name">Name <span aria-hidden="true">*</span></label>
+      <input id="contact-name" name="name" autocomplete="name" required maxlength="100">
+      <p class="ac-contact__error" id="contact-name-error"></p>
+    </div>
+    <div class="ac-contact__field">
+      <label for="contact-email">Email <span aria-hidden="true">*</span></label>
+      <input id="contact-email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="254">
+      <p class="ac-contact__error" id="contact-email-error"></p>
+    </div>
+    <div class="ac-contact__field">
+      <label for="contact-business">Business / project name <span aria-hidden="true">*</span></label>
+      <input id="contact-business" name="business" autocomplete="organization" required maxlength="120">
+      <p class="ac-contact__error" id="contact-business-error"></p>
+    </div>
+    <div class="ac-contact__field">
+      <label for="contact-build">What do you want to build? <span aria-hidden="true">*</span></label>
+      <select id="contact-build" name="build" required>
+        <option value="">Select a project type</option>
+        <option>Website or Shopify store</option>
+        <option>AI video or digital advertising</option>
+        <option>Graphic design or brand assets</option>
+        <option>AI agent or automation</option>
+        <option>Application or dashboard</option>
+        <option>IT support or AI implementation</option>
+        <option>Something else</option>
+      </select>
+      <p class="ac-contact__error" id="contact-build-error"></p>
+    </div>
+    <div class="ac-contact__field">
+      <label for="contact-timeline">Desired timeline <span aria-hidden="true">*</span></label>
+      <select id="contact-timeline" name="timeline" required>
+        <option value="">Select a timeline</option>
+        <option>As soon as practical</option>
+        <option>Within 1 month</option>
+        <option>1–3 months</option>
+        <option>3+ months</option>
+        <option>Not sure yet</option>
+      </select>
+      <p class="ac-contact__error" id="contact-timeline-error"></p>
+    </div>
+    <div class="ac-contact__field">
+      <label for="contact-budget">Budget range <span aria-hidden="true">*</span></label>
+      <select id="contact-budget" name="budget" required>
+        <option value="">Select a budget range</option>
+        <option>Under $1,000</option>
+        <option>$1,000–$3,000</option>
+        <option>$3,000–$7,500</option>
+        <option>$7,500+</option>
+        <option>Not sure yet</option>
+      </select>
+      <p class="ac-contact__error" id="contact-budget-error"></p>
+    </div>
+    <div class="ac-contact__field ac-contact__field--wide">
+      <label for="contact-description">Project description <span aria-hidden="true">*</span></label>
+      <textarea id="contact-description" name="description" rows="6" required minlength="20" maxlength="2000" aria-describedby="contact-description-help contact-description-count"></textarea>
+      <div class="ac-contact__help"><span id="contact-description-help">Include the goal, audience, and useful outcome.</span><span id="contact-description-count" data-description-count>0 / 2000</span></div>
+      <p class="ac-contact__error" id="contact-description-error"></p>
+    </div>
+
+    <div class="ac-contact__trap" aria-hidden="true">
+      <label for="contact-company-site">Leave this field empty</label>
+      <input id="contact-company-site" name="_gotcha" tabindex="-1" autocomplete="off">
+    </div>
+    <input type="hidden" name="_subject" value="New Alemzai Systems project inquiry">
+    <input type="hidden" name="_template" value="table">
+
+    <div class="ac-contact__actions ac-contact__field--wide">
+      <button type="submit" data-submit-button>Send project inquiry <span aria-hidden="true">↗</span></button>
+      <a href="mailto:alemzai.systems@gmail.com?subject=Alemzai%20Systems%20project%20inquiry">Use email instead</a>
+    </div>
+    <div class="ac-contact__status ac-contact__field--wide" role="status" aria-live="polite" aria-atomic="true" data-form-status>No inquiry has been sent.</div>
+  </form>
+</section>
+
+    <section class="start-project" id="legacy-start-project" aria-labelledby="start-project-title"><div class="project-intro client-reveal"><span>06 / INQUIRY</span><h2 id="start-project-title">Start a project</h2><p>Share the system you want to build. The form validates locally and only sends when a form endpoint has been configured.</p><div class="configuration"><b>Configuration status</b><p id="contact-fallback">Email fallback: not configured.</p><p id="booking-fallback">Booking link: not configured.</p></div></div><form id="project-form" novalidate><label>Name<input name="name" autocomplete="name" required></label><label>Email<input name="email" type="email" autocomplete="email" required></label><label>Business/project name<input name="business" autocomplete="organization" required></label><label>What do you want to build?<select name="build" required><option value="">Select a project type</option><option>Website or Shopify store</option><option>AI video or campaign content</option><option>AI agent or custom GPT workflow</option><option>Business automation</option><option>Application or dashboard</option><option>IT support or AI implementation</option></select></label><label>Desired timeline<select name="timeline" required><option value="">Select a timeline</option><option>As soon as practical</option><option>Within 1 month</option><option>1–3 months</option><option>3+ months</option><option>Not sure yet</option></select></label><label>Budget range<select name="budget" required><option value="">Select a budget range</option><option>Under $1,000</option><option>$1,000–$3,000</option><option>$3,000–$7,500</option><option>$7,500+</option><option>Not sure yet</option></select></label><label class="wide">Project description<textarea name="description" rows="5" maxlength="2000" required placeholder="Describe the goal, audience, and what a successful build should help you do."></textarea><small><span id="description-count">0</span> / 2000</small></label><div class="form-actions wide"><button class="button" type="submit">Start a project ↗</button><a class="outline-action booking-link" href="#" aria-disabled="true">Book a conversation ↗</a></div><div class="form-status wide" id="form-status" role="status" aria-live="polite">No inquiry submitted yet.</div></form></section>
   </main>
   <footer><a class="mark" href="#top" aria-label="Alemzai, back to top">ALEMZAI</a><p>Systems for ideas that move.</p><a href="https://github.com/gadgetskpm-ctrl" rel="me noopener">GitHub ↗</a></footer>
+    </div>
+  </div>
+
+  <a class="av2-connect" href="#start-project"><span>Connect</span><i aria-hidden="true">↗</i></a>
+  <div class="av2-cursor" data-av2-cursor aria-hidden="true"><span></span></div>
+</div>
 </body>
 </html>

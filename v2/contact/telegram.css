@@ -33,26 +33,15 @@
   text-transform: uppercase;
 }
 
-.ac-contact__telegram-qr > div {
-  position: relative;
-  width: 72px;
+.ac-contact__telegram-qr img {
+  display: block;
+  width: min(112px, 100%);
+  height: auto;
   aspect-ratio: 1;
-  border: 1px solid #090b0a;
-  background: repeating-linear-gradient(45deg, #090b0a 0 4px, transparent 4px 8px);
 }
-
-.ac-contact__telegram-qr i {
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  border: 4px solid #090b0a;
-  background: #f2f4ef;
-}
-
-.ac-contact__telegram-qr i:nth-child(1) { left: 5px; top: 5px; }
-.ac-contact__telegram-qr i:nth-child(2) { right: 5px; top: 5px; }
-.ac-contact__telegram-qr i:nth-child(3) { left: 5px; bottom: 5px; }
 .ac-contact__telegram-qr b { font: 700 9px var(--mono, monospace); }
+.ac-contact__status a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.ac-contact__status a:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
 
 @media (max-width: 900px) {
   .ac-contact__telegram-block { display: block; }

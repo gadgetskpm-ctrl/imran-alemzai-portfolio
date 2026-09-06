@@ -1,4 +1,4 @@
-<section class="ac-contact" id="start-project" aria-labelledby="contact-title" data-alemzai-contact data-form-endpoint="https://formsubmit.co/ajax/alemzai.systems@gmail.com" data-telegram-url="https://t.me/ALEMZAISYSTEMS">
+<section class="ac-contact" id="start-project" aria-labelledby="contact-title" data-alemzai-contact data-form-endpoint="https://formspree.io/f/mppzlkan" data-telegram-url="https://t.me/ALEMZAISYSTEMS">
   <div class="ac-contact__intro">
     <p class="ac-contact__eyebrow">06 / Start a project</p>
     <h2 id="contact-title">Have a system<br>in mind?</h2>
@@ -6,11 +6,11 @@
     <div class="ac-contact__direct" aria-label="Direct contact options">
       <div class="ac-contact__telegram-block">
         <a class="ac-contact__telegram" href="#" aria-disabled="true" data-telegram-link>Message on Telegram ↗ <span data-telegram-state>Not configured</span></a>
-        <div class="ac-contact__telegram-qr" aria-label="Reserved area for the final Telegram QR code">
+        <div class="ac-contact__telegram-qr">
           <span>QR / TELEGRAM</span>
-          <div aria-hidden="true"><i></i><i></i><i></i></div>
+          <img src="public/assets/contact/telegram-qr.svg" width="176" height="176" alt="QR code opening the Alemzai Systems Telegram contact">
           <b>@ALEMZAISYSTEMS</b>
-          <small>QR code area reserved</small>
+          <small>Scan to open Telegram</small>
         </div>
       </div>
       <a class="ac-contact__email" href="mailto:alemzai.systems@gmail.com">alemzai.systems@gmail.com <span aria-hidden="true">↗</span></a>
@@ -18,7 +18,7 @@
     <p class="ac-contact__privacy">Your details are used only to respond to this project inquiry. Do not include passwords, API keys, or other sensitive information.</p>
   </div>
 
-  <form class="ac-contact__form" data-contact-form novalidate>
+  <form class="ac-contact__form" action="https://formspree.io/f/mppzlkan" method="POST" accept-charset="UTF-8" data-contact-form novalidate>
     <div class="ac-contact__field">
       <label for="contact-name">Name <span aria-hidden="true">*</span></label>
       <input id="contact-name" name="name" autocomplete="name" required maxlength="100">
@@ -81,7 +81,7 @@
 
     <div class="ac-contact__trap" aria-hidden="true">
       <label for="contact-company-site">Leave this field empty</label>
-      <input id="contact-company-site" name="_honey" tabindex="-1" autocomplete="off">
+      <input id="contact-company-site" name="_gotcha" tabindex="-1" autocomplete="off">
     </div>
     <input type="hidden" name="_subject" value="New Alemzai Systems project inquiry">
     <input type="hidden" name="_template" value="table">

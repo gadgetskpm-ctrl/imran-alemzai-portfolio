@@ -11,11 +11,11 @@ Static-hosting-compatible project inquiry UI for Alemzai Systems.
 
 ## Delivery configuration
 
-The checked-in `data-form-endpoint` uses FormSubmit's free AJAX endpoint for the public destination `alemzai.systems@gmail.com`. FormSubmit may require the owner to activate the address from its first confirmation email before inquiries are delivered. This third-party endpoint is the only non-local request made by the module and contains no API key or credential.
+The checked-in form uses the approved Formspree endpoint `https://formspree.io/f/mppzlkan`. JavaScript submits the existing fields with `fetch`, while the matching HTML `action` and `method` provide a static-hosting fallback. No SDK, API key, token, or credential is stored in the repository.
 
 Do not report delivery as operational until an authorized real submission has been received at the destination mailbox. The agent did not send a real submission.
 
-The public email fallback remains visible even if the endpoint fails. To use a different approved static-form handler, update `data-form-endpoint` and the endpoint allowlist in `contact.js` together.
+The public email and Telegram fallbacks remain available if the endpoint fails. To use a different approved Formspree form, update `data-form-endpoint`, the form `action`, and the endpoint allowlist in `contact.js` together.
 
 ## Telegram
 
