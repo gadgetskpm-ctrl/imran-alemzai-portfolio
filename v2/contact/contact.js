@@ -142,8 +142,12 @@
           headers: { Accept: 'application/json' },
           signal: requestController.signal
         });
-        const payload = await response.json().catch(() => ({}));
-        if (!response.ok || payload.success === false || payload.success === 'false') throw new Error('Delivery was not accepted');
+        const payload = await response.json().catch(() => null);
+        const submissionErrors = Array.isArray(payload?.errors) ? payload.errors : [];
+        const formspreeRejected = payload?.ok === false || payload?.success === false || payload?.success === 'false';
+        if (!response.ok || !payload || submissionErrors.length > 0 || formspreeRejected) {
+          throw new Error('Delivery was not accepted');
+        }
         form.reset();
         fields.forEach((field) => field.removeAttribute('aria-invalid'));
         count.textContent = '0 / 2000';
