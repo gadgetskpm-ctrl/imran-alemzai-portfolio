@@ -11,7 +11,7 @@ Static-hosting-compatible project inquiry UI for Alemzai Systems.
 
 ## Delivery configuration
 
-The checked-in form uses the approved Formspree endpoint `https://formspree.io/f/xeaqlakq`. JavaScript submits the existing fields with `POST` and `Accept: application/json`, while the matching HTML `action` and `method` provide a static-hosting fallback. The form clears only after an HTTP-successful JSON response with no Formspree submission errors. No SDK, API key, token, or credential is stored in the repository.
+The checked-in form uses the approved Formspree endpoint `https://formspree.io/f/xaeydedk`. JavaScript submits the existing fields with `POST` and `Accept: application/json`, while the matching HTML `action` and `method` provide a static-hosting fallback. The form clears only after an HTTP-successful JSON response with no Formspree submission errors. No SDK, API key, token, or credential is stored in the repository.
 
 Do not report delivery as operational until an authorized real submission has been received at the destination mailbox. The agent did not send a real submission.
 
