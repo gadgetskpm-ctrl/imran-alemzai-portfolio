@@ -23,12 +23,14 @@
   const title = root.querySelector('[data-demo-name]');
   const format = root.querySelector('[data-demo-format]');
   const mainTabs = [...root.querySelectorAll('[data-demo-select]')];
+  let workflowTimers = [];
 
   const definitions = {
     barber: { name: 'Northline Barber', format: 'Booking website' },
     food: { name: 'Counter / 24', format: 'Menu website' },
     studio: { name: 'FIELD / FORM', format: 'Brand system' },
-    fitness: { name: 'Form / Fitness', format: 'Mobile app concept' }
+    fitness: { name: 'Form / Fitness', format: 'Mobile app concept' },
+    automation: { name: 'Signal / Ops', format: 'Business automation' }
   };
 
   const barberStates = {
@@ -142,6 +144,82 @@
     return `<article class="av2-scene" data-scene="fitness"><div class="av2-scene__bar"><strong class="av2-scene__brand">Form / Fitness</strong><span class="av2-scene__notice">App concept · sample data</span></div><h4>Your training.<br>One clear view.</h4><p class="av2-scene__lead">A mobile-style navigation concept for planning and reviewing workouts.</p><div class="av2-grid">${data.fitness[view].map(card => `<div class="av2-card"><b>${card[0]}</b><span>${card[1]}</span></div>`).join('')}</div><nav class="av2-mobile-nav" role="tablist" aria-label="Fitness app views">${['today','plans','progress','profile'].map(item => `<button type="button" role="tab" aria-selected="${item === view}" tabindex="${item === view ? 0 : -1}" data-fitness-view="${item}">${item}</button>`).join('')}</nav><a class="av2-action" href="#start-project" data-demo-request data-request-type="Fitness app concept">Request this build</a><div class="av2-status" role="status" data-status>${view[0].toUpperCase() + view.slice(1)} sample view selected.</div></article>`;
   }
 
+  function automationMarkup() {
+    return `<article class="av2-scene av2-automation" data-scene="automation">
+      <div class="av2-scene__bar"><strong class="av2-scene__brand">Signal / Ops</strong><span class="av2-scene__notice">Interactive concept · sample data</span></div>
+      <div class="av2-automation__intro"><div><span>Alemzai workflow demonstration</span><h4>Every inquiry.<br>Routed with intent.</h4></div><p>A practical lead-operations system that captures a request, organizes the details, pauses for human approval, and prepares the next action.</p></div>
+      <div class="av2-automation__toolbar">
+        <label>Sample trigger<select data-automation-source><option>Website inquiry</option><option>Email request</option><option>Campaign lead</option></select></label>
+        <div><button type="button" data-automation-run>Run sample workflow <span aria-hidden="true">→</span></button><button type="button" data-automation-reset>Reset</button></div>
+      </div>
+      <div class="av2-automation__workspace">
+        <div class="av2-automation__flow" aria-label="Sample business automation workflow">
+          <div class="av2-automation__flow-head"><span>Workflow / Lead operations</span><b data-automation-state>Ready to simulate</b></div>
+          <ol>
+            <li data-automation-step><i>01</i><div><strong>Capture inquiry</strong><span data-automation-capture>Website inquiry enters the workflow.</span></div><b>Idle</b></li>
+            <li data-automation-step><i>02</i><div><strong>Organize + qualify</strong><span>AI extracts the service, timeline, and priority.</span></div><b>Idle</b></li>
+            <li data-automation-step><i>03</i><div><strong>Human approval</strong><span>A person reviews the summary before anything is sent.</span></div><b>Idle</b></li>
+            <li data-automation-step><i>04</i><div><strong>Route next action</strong><span>CRM record and follow-up draft are prepared.</span></div><b>Idle</b></li>
+          </ol>
+        </div>
+        <aside class="av2-automation__outcome">
+          <span>Sample output</span>
+          <div><small>Request</small><strong>Website + automation</strong></div>
+          <div><small>Priority</small><strong>Qualified / normal</strong></div>
+          <div><small>Owner</small><strong>Project intake</strong></div>
+          <div class="av2-automation__checkpoint"><small>Human checkpoint</small><strong>Nothing sends automatically.</strong><button type="button" data-automation-approve disabled>Approve sample draft</button></div>
+        </aside>
+      </div>
+      <div class="av2-automation__footer"><a class="av2-action" href="#start-project" data-demo-request data-request-type="Lead operations automation">Build an automation system</a><div class="av2-status" role="status" aria-live="polite" data-status>Select a sample trigger, then run the workflow.</div></div>
+    </article>`;
+  }
+
+  function clearWorkflowTimers() {
+    workflowTimers.forEach(timer => clearTimeout(timer));
+    workflowTimers = [];
+  }
+
+  function requestAutomationApproval(scene) {
+    scene.querySelector('[data-automation-state]').textContent = 'Approval required';
+    scene.querySelector('[data-automation-approve]').disabled = false;
+    scene.querySelector('[data-status]').textContent = 'Sample lead qualified. Review the prepared action at the human checkpoint.';
+  }
+
+  function runAutomation(scene) {
+    clearWorkflowTimers();
+    const steps = [...scene.querySelectorAll('[data-automation-step]')];
+    const run = scene.querySelector('[data-automation-run]');
+    const approve = scene.querySelector('[data-automation-approve]');
+    steps.forEach(step => { step.classList.remove('is-active', 'is-done'); step.querySelector(':scope > b').textContent = 'Idle'; });
+    run.disabled = true;
+    approve.disabled = true;
+    approve.textContent = 'Approve sample draft';
+    scene.querySelector('[data-automation-state]').textContent = 'Processing sample';
+    scene.querySelector('[data-status]').textContent = 'Sample workflow running. No information is being sent.';
+    const reduce = motion?.isReduced?.() !== false;
+    steps.slice(0, 3).forEach((step, index) => {
+      const advance = () => {
+        steps[index - 1]?.classList.replace('is-active', 'is-done');
+        if (steps[index - 1]) steps[index - 1].querySelector(':scope > b').textContent = 'Complete';
+        step.classList.add('is-active');
+        step.querySelector(':scope > b').textContent = index === 2 ? 'Review' : 'Running';
+        if (index === 2) requestAutomationApproval(scene);
+      };
+      if (reduce) advance(); else workflowTimers.push(setTimeout(advance, index * 650));
+    });
+  }
+
+  function resetAutomation(scene) {
+    clearWorkflowTimers();
+    scene.querySelectorAll('[data-automation-step]').forEach(step => { step.classList.remove('is-active', 'is-done'); step.querySelector(':scope > b').textContent = 'Idle'; });
+    scene.querySelector('[data-automation-state]').textContent = 'Ready to simulate';
+    scene.querySelector('[data-automation-run]').disabled = false;
+    const approve = scene.querySelector('[data-automation-approve]');
+    approve.disabled = true;
+    approve.textContent = 'Approve sample draft';
+    scene.querySelector('[data-status]').textContent = 'Sample workflow reset. No information was stored or sent.';
+  }
+
   function animateIn(targets) {
     if (motion?.isReduced?.() !== false) return;
     [...targets].forEach((target, index) => {
@@ -155,6 +233,7 @@
   function renderDemo(key, focus = false) {
     const definition = definitions[key];
     if (!definition) return;
+    clearWorkflowTimers();
     mainTabs.forEach(button => {
       const selected = button.dataset.demoSelect === key;
       button.setAttribute('aria-selected', String(selected));
@@ -162,7 +241,7 @@
     });
     title.textContent = definition.name;
     format.textContent = definition.format;
-    stage.innerHTML = key === 'barber' ? barberMarkup() : key === 'food' ? foodMarkup() : key === 'studio' ? studioMarkup() : fitnessMarkup();
+    stage.innerHTML = key === 'barber' ? barberMarkup() : key === 'food' ? foodMarkup() : key === 'studio' ? studioMarkup() : key === 'fitness' ? fitnessMarkup() : automationMarkup();
     animateIn(stage.firstElementChild.children);
     if (focus) stage.focus({ preventScroll: true });
   }
@@ -239,6 +318,9 @@
     const studioDetail = event.target.closest('[data-studio-detail]');
     const studioClose = event.target.closest('[data-studio-modal-close]');
     const fitness = event.target.closest('[data-fitness-view]');
+    const automationRun = event.target.closest('[data-automation-run]');
+    const automationReset = event.target.closest('[data-automation-reset]');
+    const automationApprove = event.target.closest('[data-automation-approve]');
     const time = event.target.closest('[data-time]');
     if (barber) selectBarberState(barber.dataset.barberState);
     if (food) { stage.innerHTML = foodMarkup(food.dataset.foodFilter); animateIn(stage.querySelectorAll('.av2-card')); }
@@ -246,10 +328,40 @@
     if (studioDetail) openStudioModal(studioDetail);
     if (studioClose) closeStudioModal();
     if (fitness) { stage.innerHTML = fitnessMarkup(fitness.dataset.fitnessView); animateIn(stage.querySelectorAll('.av2-card')); }
+    if (automationRun) runAutomation(automationRun.closest('[data-scene="automation"]'));
+    if (automationReset) resetAutomation(automationReset.closest('[data-scene="automation"]'));
+    if (automationApprove) {
+      automationApprove.disabled = true;
+      automationApprove.textContent = 'Sample approved';
+      const scene = automationApprove.closest('[data-scene="automation"]');
+      const steps = [...scene.querySelectorAll('[data-automation-step]')];
+      steps[2].classList.replace('is-active', 'is-done');
+      steps[2].querySelector(':scope > b').textContent = 'Approved';
+      steps[3].classList.add('is-active');
+      steps[3].querySelector(':scope > b').textContent = 'Running';
+      scene.querySelector('[data-automation-state]').textContent = 'Preparing handoff';
+      const complete = () => {
+        steps[3].classList.replace('is-active', 'is-done');
+        steps[3].querySelector(':scope > b').textContent = 'Prepared';
+        scene.querySelector('[data-automation-state]').textContent = 'Ready for handoff';
+        scene.querySelector('[data-automation-run]').disabled = false;
+        scene.querySelector('[data-status]').textContent = 'Sample approved. CRM update and follow-up are ready for a real system to execute.';
+      };
+      if (motion?.isReduced?.() !== false) complete(); else workflowTimers.push(setTimeout(complete, 550));
+    }
     if (time) {
       stage.querySelectorAll('[data-time]').forEach(button => button.setAttribute('aria-pressed', String(button === time)));
       stage.querySelector('[data-status]').textContent = `${time.textContent} selected as a sample preference. No appointment is reserved.`;
     }
+  });
+
+  listen(stage, 'change', event => {
+    const source = event.target.closest('[data-automation-source]');
+    if (!source) return;
+    const scene = source.closest('[data-scene="automation"]');
+    resetAutomation(scene);
+    scene.querySelector('[data-automation-capture]').textContent = `${source.value} enters the workflow.`;
+    scene.querySelector('[data-status]').textContent = `${source.value} selected as the fictional trigger.`;
   });
 
   listen(root, 'click', event => {
@@ -286,6 +398,7 @@
   renderDemo('barber');
   const api = { render: renderDemo, destroy() {
     cancelAnimations();
+    clearWorkflowTimers();
     context?.destroy?.();
     cleanups.splice(0).forEach(cleanup => typeof cleanup === 'function' && cleanup());
     delete root.dataset.ready;

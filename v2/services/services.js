@@ -3,12 +3,12 @@
 
   const instances = new WeakMap();
   const catalog = {
-    websitesShopify: { number: '01', category: 'Digital and commerce systems', code: 'WEB', title: 'Websites and stores built around clear journeys.', position: 'Responsive websites and Shopify storefronts that organize content, products, and customer actions into a coherent experience.', deliverables: ['Responsive business websites', 'Shopify storefront configuration', 'Landing and product page systems', 'Accessibility and launch review'] },
-    aiMedia: { number: '02', category: 'Creative and campaign systems', code: 'MEDIA', title: 'AI media and ads shaped for each channel.', position: 'AI-assisted video and advertising workflows that connect an approved idea, message, format, and publishing plan.', deliverables: ['AI video concepts and production', 'Scripts and storyboards', 'Digital ad creative variations', 'Campaign and landing-page direction'] },
-    design: { number: '03', category: 'Visual identity systems', code: 'DESIGN', title: 'Brand assets designed to work together.', position: 'Practical visual systems that help a business present itself consistently across print and digital touchpoints.', deliverables: ['Logo and identity direction', 'Packaging and business materials', 'Social graphics', 'Presentation and campaign assets'] },
-    aiAutomation: { number: '04', category: 'AI and workflow systems', code: 'AUTO', title: 'AI agents and automation for repeatable work.', position: 'Purpose-built assistants and mapped automations that support routine tasks while keeping review and approval visible.', deliverables: ['Custom GPT and agent workflows', 'Workflow and trigger mapping', 'Data-routing prototypes', 'Human review checkpoints'] },
-    apps: { number: '05', category: 'Application systems', code: 'APP', title: 'Focused tools for real operating needs.', position: 'Simple applications and dashboards that organize information and make key tasks easier to understand and complete.', deliverables: ['Interactive application prototypes', 'Dashboard information design', 'Responsive interfaces', 'Workflow and handoff documentation'] },
-    it: { number: '06', category: 'Implementation support', code: 'IT', title: 'Practical IT and AI implementation support.', position: 'Clear technical support for selecting, configuring, documenting, and safely adopting useful business tools.', deliverables: ['Tool and workflow assessment', 'AI implementation planning', 'Setup and support documentation', 'Team handoff workflows'] }
+    websitesShopify: { number: '01', category: 'Digital and commerce systems', code: 'WEB', title: 'Websites and stores built around clear journeys.', position: 'Responsive websites and Shopify storefronts that organize content, products, and customer actions into a coherent experience.', deliverables: ['Responsive business websites', 'Shopify storefront configuration', 'Landing and product page systems', 'Accessibility and launch review'], flow: ['Visitor', 'Experience', 'Action', 'Inquiry'], outcome: 'Clear customer journey', proof: 'Responsive + accessible' },
+    aiMedia: { number: '02', category: 'Creative and campaign systems', code: 'MEDIA', title: 'AI media and ads shaped for each channel.', position: 'AI-assisted video and advertising workflows that connect an approved idea, message, format, and publishing plan.', deliverables: ['AI video concepts and production', 'Scripts and storyboards', 'Digital ad creative variations', 'Campaign and landing-page direction'], flow: ['Brief', 'Produce', 'Review', 'Publish'], outcome: 'Channel-ready campaign', proof: 'Approval before release' },
+    design: { number: '03', category: 'Visual identity systems', code: 'DESIGN', title: 'Brand assets designed to work together.', position: 'Practical visual systems that help a business present itself consistently across print and digital touchpoints.', deliverables: ['Logo and identity direction', 'Packaging and business materials', 'Social graphics', 'Presentation and campaign assets'], flow: ['Strategy', 'Identity', 'System', 'Assets'], outcome: 'Consistent brand presence', proof: 'Reusable design system' },
+    aiAutomation: { number: '04', category: 'AI and workflow systems', code: 'AUTO', title: 'AI agents and automation for repeatable work.', position: 'Purpose-built assistants and mapped automations that support routine tasks while keeping review and approval visible.', deliverables: ['Custom GPT and agent workflows', 'Workflow and trigger mapping', 'Data-routing prototypes', 'Human review checkpoints'], flow: ['Inquiry', 'Qualify', 'Approve', 'Route'], outcome: 'Lead ready for follow-up', proof: 'Human approval protected' },
+    apps: { number: '05', category: 'Application systems', code: 'APP', title: 'Focused tools for real operating needs.', position: 'Simple applications and dashboards that organize information and make key tasks easier to understand and complete.', deliverables: ['Interactive application prototypes', 'Dashboard information design', 'Responsive interfaces', 'Workflow and handoff documentation'], flow: ['Need', 'Interface', 'Logic', 'Handoff'], outcome: 'Focused working tool', proof: 'Tested task flow' },
+    it: { number: '06', category: 'Implementation support', code: 'IT', title: 'Practical IT and AI implementation support.', position: 'Clear technical support for selecting, configuring, documenting, and safely adopting useful business tools.', deliverables: ['Tool and workflow assessment', 'AI implementation planning', 'Setup and support documentation', 'Team handoff workflows'], flow: ['Assess', 'Configure', 'Test', 'Support'], outcome: 'Reliable team setup', proof: 'Documented + supported' }
   };
 
   function init(root) {
@@ -33,6 +33,10 @@
     const list = root.querySelector('[data-service-deliverables]');
     const code = root.querySelector('[data-service-code]');
     const diagram = root.querySelector('[data-service-diagram]');
+    const flow = [...root.querySelectorAll('[data-service-flow] div strong')];
+    const flowId = root.querySelector('[data-service-flow-id]');
+    const outcome = root.querySelector('[data-service-outcome]');
+    const proof = root.querySelector('[data-service-proof]');
     const status = root.querySelector('[data-service-status]');
     let activeKey = tabs[0]?.dataset.serviceKey || 'websitesShopify';
 
@@ -61,11 +65,15 @@
       position.textContent = service.position;
       list.replaceChildren(...service.deliverables.map(item => Object.assign(document.createElement('li'), { textContent: item })));
       code.textContent = `${service.code} / ${service.number}`;
+      flow.forEach((node, index) => { node.textContent = service.flow[index]; });
+      flowId.textContent = `${service.code}-${service.number}`;
+      outcome.textContent = service.outcome;
+      proof.textContent = service.proof;
       root.dataset.activeService = key;
       status.textContent = `${activeTab.textContent.trim()} service selected.`;
       cancelAnimations();
       [title, position, list].forEach((target, index) => animate(target, [{ opacity: .45, transform: `translateY(${tokens.distance.near}px)` }, { opacity: 1, transform: 'translateY(0)' }], { duration: tokens.duration.fast * 1400, delay: index * 28, easing: 'cubic-bezier(.22,1,.36,1)' }));
-      animate(diagram, [{ transform: 'rotate(-3deg) scale(.98)' }, { transform: 'rotate(0) scale(1)' }], { duration: tokens.duration.base * 800, easing: 'cubic-bezier(.22,1,.36,1)' });
+      animate(diagram, [{ opacity: .62, transform: 'translateY(8px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: tokens.duration.base * 800, easing: 'cubic-bezier(.22,1,.36,1)' });
       if (moveFocus) activeTab.focus();
     }
 

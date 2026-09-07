@@ -9,7 +9,7 @@
     websitesShopify: 'food',
     aiMedia: 'studio',
     design: 'studio',
-    aiAutomation: 'fitness',
+    aiAutomation: 'automation',
     apps: 'fitness',
     it: 'barber'
   };
@@ -43,7 +43,8 @@
     const value = type.includes('brand') ? 'Graphic design or brand assets'
       : type.includes('barber') || type.includes('food') || type.includes('studio')
       ? 'Website or Shopify store'
-      : type.includes('fitness') ? 'Application or dashboard' : '';
+      : type.includes('fitness') ? 'Application or dashboard'
+      : type.includes('automation') || type.includes('lead operations') ? 'AI agent or automation' : '';
     const select = contactSelect();
     if (select && value) select.value = value;
   }
