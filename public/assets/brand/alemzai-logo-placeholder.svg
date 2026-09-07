@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 96" role="img" aria-labelledby="logo-title logo-description" data-asset-status="placeholder">
+  <title id="logo-title">Alemzai Systems</title>
+  <desc id="logo-description">Placeholder logo for Alemzai Systems. Replace with the approved final brand mark before launch.</desc>
+  <rect width="480" height="96" rx="2" fill="#070908"/>
+  <g fill="none" stroke="#b9ff25" stroke-width="5" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M22 72 49 20l27 52M34 51h30"/>
+  </g>
+  <text x="105" y="70" fill="#f3f5ef" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="700" letter-spacing="1">ALEMZAI</text>
+  <path d="M22 83h436" stroke="#30362f"/>
+</svg>
