@@ -40,7 +40,8 @@
 
   function onRequestBuild(event) {
     const type = String(event.detail?.type || '').toLowerCase();
-    const value = type.includes('barber') || type.includes('food') || type.includes('studio')
+    const value = type.includes('brand') ? 'Graphic design or brand assets'
+      : type.includes('barber') || type.includes('food') || type.includes('studio')
       ? 'Website or Shopify store'
       : type.includes('fitness') ? 'Application or dashboard' : '';
     const select = contactSelect();

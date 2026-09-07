@@ -1,7 +1,6 @@
 (function alemzaiContactModule(global) {
   'use strict';
 
-  const publicEmail = 'alemzai.systems@gmail.com';
   const telegramUrl = 'https://t.me/ALEMZAISYSTEMS';
   const submissionCooldown = 15000;
   const instances = new WeakMap();
@@ -60,12 +59,7 @@
         rel: 'noopener noreferrer',
         textContent: 'Message on Telegram'
       });
-      const separator = document.createTextNode(' or ');
-      const emailLink = Object.assign(document.createElement('a'), {
-        href: `mailto:${publicEmail}`,
-        textContent: `email ${publicEmail}`
-      });
-      status.replaceChildren(introduction, telegramLink, separator, emailLink, document.createTextNode('.'));
+      status.replaceChildren(introduction, telegramLink, document.createTextNode('.'));
     }
 
     function isMeaningful(value) {

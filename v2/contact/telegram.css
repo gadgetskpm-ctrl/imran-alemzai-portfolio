@@ -1,9 +1,3 @@
-.ac-contact__telegram-block {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 164px;
-  gap: 12px;
-}
-
 .ac-contact__telegram {
   align-self: stretch;
   border-color: var(--ac-acid) !important;
@@ -14,37 +8,16 @@
 .ac-contact__telegram:hover,
 .ac-contact__telegram:focus-visible { background: #d0ff6d !important; }
 .ac-contact__telegram span { color: #27300f !important; }
+.ac-contact__github span { color: var(--ac-muted); font-size: 9px; }
+.ac-contact__github:hover span,
+.ac-contact__github:focus-visible span { color: var(--ac-acid); }
+.ac-contact__direct { max-width: 420px; }
+.ac-contact__actions { grid-template-columns: 1fr; }
 
-.ac-contact__telegram-qr {
-  display: grid;
-  place-items: center;
-  min-height: 164px;
-  padding: 12px;
-  border: 1px solid var(--ac-line);
-  background: #f2f4ef;
-  color: #090b0a;
-  text-align: center;
-}
-
-.ac-contact__telegram-qr > span,
-.ac-contact__telegram-qr small {
-  font: 700 8px/1.2 var(--mono, monospace);
-  letter-spacing: .08em;
-  text-transform: uppercase;
-}
-
-.ac-contact__telegram-qr img {
-  display: block;
-  width: min(112px, 100%);
-  height: auto;
-  aspect-ratio: 1;
-}
-.ac-contact__telegram-qr b { font: 700 9px var(--mono, monospace); }
 .ac-contact__status a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 .ac-contact__status a:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.ac-contact__status:empty { display: none; }
 
 @media (max-width: 900px) {
-  .ac-contact__telegram-block { display: block; }
-  .ac-contact__telegram-qr { display: none; }
   .ac-contact__telegram { min-height: 62px; font-size: 12px; }
 }

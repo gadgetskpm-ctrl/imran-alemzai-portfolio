@@ -25,3 +25,5 @@ button,input,select,textarea{font:inherit;color:inherit}button{border:0}.hero-ac
 @media(max-width:760px){.barber-layout{grid-template-columns:1fr}.barber-copy{padding-top:18px}.barber-visual{min-height:320px;margin-top:0}.barber-copy .micro-tabs{margin-top:20px}}
 @media(max-width:560px){.barber-demo{padding-inline:14px}.barber-demo header{align-items:center;gap:12px}.barber-demo header .demo-cta{margin:0 0 0 auto;padding:10px;font-size:8px}.barber-prices{grid-template-columns:1fr}.barber-state-panel{min-height:116px}.barber-visual{min-height:260px;aspect-ratio:4/3}.barber-secondary{width:33%;right:10px;bottom:10px}.barber-visual figcaption{left:10px;bottom:10px}.barber-image-stage img{object-position:center}}
 @media(prefers-reduced-motion:reduce){.barber-image-stage img{transition:none!important;clip-path:none!important;transform:none!important}.barber-secondary{transition:none!important}}
+.studio .studio-cta{color:#090b0a}
+.studio .studio-cta:hover,.studio .studio-cta:focus-visible{color:#090b0a;background:#d0ff6d}

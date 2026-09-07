@@ -27,7 +27,7 @@
   const definitions = {
     barber: { name: 'Northline Barber', format: 'Booking website' },
     food: { name: 'Counter / 24', format: 'Menu website' },
-    studio: { name: 'Form / Field Studio', format: 'Portfolio website' },
+    studio: { name: 'FIELD / FORM', format: 'Brand system' },
     fitness: { name: 'Form / Fitness', format: 'Mobile app concept' }
   };
 
@@ -51,16 +51,18 @@
 
   const data = {
     food: [
-      { name: 'House Stack', type: 'burgers', detail: 'Double patty · pickles · house sauce', price: '$12 sample' },
-      { name: 'Green Heat', type: 'burgers', detail: 'Grilled vegetable patty · chilli relish', price: '$11 sample' },
-      { name: 'Crisp Fries', type: 'sides', detail: 'Sea salt · smoked paprika', price: '$5 sample' },
-      { name: 'Lime Soda', type: 'drinks', detail: 'Citrus · soda · mint', price: '$4 sample' }
+      { name: 'Classic Double Cheeseburger', type: 'burgers', detail: 'Two beef patties · American cheese · pickles · house sauce', price: '$12 sample', image: 'double-cheeseburger.jpg', alt: 'Double cheeseburger with fries and crispy bites' },
+      { name: 'Bacon Cheeseburger', type: 'burgers', detail: 'Beef patty · smoked bacon · cheddar · lettuce · tomato', price: '$13 sample', image: 'hero-burger.jpg', alt: 'Bacon cheeseburger served with golden fries' },
+      { name: 'Crispy Chicken Sandwich', type: 'chicken', detail: 'Crispy chicken · lettuce · pickles · pepper mayo', price: '$11 sample', image: 'menu-spread.jpg', alt: 'Fast-food spread with sandwiches and crispy chicken' },
+      { name: 'Buffalo Wings', type: 'chicken', detail: 'Six wings · buffalo glaze · ranch dip', price: '$10 sample', image: 'combo-platter.webp', alt: 'Glazed chicken wings beside a burger and fries' },
+      { name: 'Seasoned Fries', type: 'sides', detail: 'Skin-on fries · sea salt · cracked pepper', price: '$5 sample', image: 'combo-platter.webp', alt: 'Golden fries on a restaurant serving tray' },
+      { name: 'Vanilla Shake', type: 'drinks', detail: 'Vanilla soft serve · whole milk · whipped cream', price: '$6 sample', image: 'menu-spread.jpg', alt: 'Restaurant menu spread with classic fast-food favorites' }
     ],
     studio: [
-      { name: 'Signal Identity', type: 'brand', detail: 'Identity direction · application system' },
-      { name: 'Field Notes', type: 'web', detail: 'Editorial website · responsive interface' },
-      { name: 'Launch Sequence', type: 'campaign', detail: 'Campaign concept · social adaptations' },
-      { name: 'Object / 04', type: 'brand', detail: 'Packaging direction · visual toolkit' }
+      { id: 'hero', type: 'identity', title: 'FIELD / FORM introduction', description: 'A wide editorial view of the modular FIELD / FORM identity across physical brand applications.', caption: 'A modular identity shown across editorial objects, stationery and physical applications.', image: 'hero-field-form.webp' },
+      { id: 'identity', type: 'identity', title: 'Identity system', description: 'A flexible identity language built from structure, contrast and controlled movement.', caption: 'A flexible identity language built from structure, contrast and controlled movement.' },
+      { id: 'digital', type: 'digital', title: 'Responsive interfaces', description: 'Responsive interface directions designed around one consistent modular system.', caption: 'Responsive interface directions designed around one consistent modular system.', image: 'digital-interface.webp' },
+      { id: 'campaign', type: 'campaign', title: 'Campaign system', description: 'Campaign applications extending the same identity across editorial, social and physical formats.', caption: 'Campaign applications extending the same identity across editorial, social and physical formats.', image: 'campaign-system.webp' }
     ],
     fitness: {
       today: [['Next session', 'Strength · 42 min'], ['Weekly load', '3 of 4 sessions'], ['Recovery', 'Easy day recommended']],
@@ -96,12 +98,44 @@
 
   function foodMarkup(filter = 'all') {
     const items = data.food.filter(item => filter === 'all' || item.type === filter);
-    return `<article class="av2-scene" data-scene="food"><div class="av2-scene__bar"><strong class="av2-scene__brand">Counter / 24</strong><span class="av2-scene__notice">Sample menu</span></div><h4>Fast menu.<br>Clear choices.</h4><p class="av2-scene__lead">Filter a fictional menu and move into a local inquiry state.</p>${tabButtons(['all','burgers','sides','drinks'], filter, 'data-food-filter', 'Menu categories')}<div class="av2-grid">${items.map(item => `<div class="av2-card"><b>${item.name}</b><span>${item.detail}</span><strong>${item.price}</strong></div>`).join('')}</div><a class="av2-action" href="#start-project" data-demo-request data-request-type="Fast-food website">Request this build</a><div class="av2-status" role="status" data-status>Showing ${filter === 'all' ? 'all sample categories' : `sample ${filter}`}.</div></article>`;
+    return `<article class="av2-scene av2-food" data-scene="food">
+      <div class="av2-scene__bar"><strong class="av2-scene__brand">Counter / 24</strong><span class="av2-scene__notice">Fictional restaurant · sample menu</span></div>
+      <div class="av2-food__hero">
+        <img src="public/assets/demos/counter-24/hero-burger.jpg" alt="Cheeseburger and fries presented in a warm restaurant setting" decoding="async">
+        <div class="av2-food__hero-copy"><span>Made to order</span><h4>Real food.<br>Ready fast.</h4><p>Classic burgers, crispy chicken, and familiar sides—presented through a premium, easy-to-use menu experience.</p></div>
+      </div>
+      <div class="av2-food__menu-head"><div><span>Explore the menu</span><h5>Choose your favorite.</h5></div>${tabButtons(['all','burgers','chicken','sides','drinks'], filter, 'data-food-filter', 'Menu categories')}</div>
+      <div class="av2-grid av2-food__grid">${items.map(item => `<article class="av2-card av2-food-card"><img src="public/assets/demos/counter-24/${item.image}" alt="${item.alt}" loading="lazy" decoding="async"><div><b>${item.name}</b><span>${item.detail}</span><strong>${item.price}</strong></div></article>`).join('')}</div>
+      <div class="av2-food__footer"><a class="av2-action" href="#start-project" data-demo-request data-request-type="Fast-food website">Request this build</a><div class="av2-status" role="status" data-status>Showing ${filter === 'all' ? 'the complete sample menu' : `sample ${filter}`}.</div></div>
+    </article>`;
+  }
+
+  function studioIdentityMarkup() {
+    return `<article class="av2-studio-identity" aria-labelledby="studio-identity-title" aria-describedby="studio-identity-caption">
+      <div class="av2-studio-wordmark" id="studio-identity-title">FIELD <i aria-hidden="true">/</i> FORM</div>
+      <div class="av2-studio-tokens" aria-label="Identity color tokens"><span class="is-black">Black</span><span class="is-paper">Warm off-white</span><span class="is-graphite">Graphite</span><span class="is-lime">Electric lime</span></div>
+      <div class="av2-studio-grid-sample" aria-label="Modular spacing and grid sample"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <p id="studio-identity-caption">A flexible identity language built from structure, contrast and controlled movement.</p>
+    </article>`;
+  }
+
+  function studioCardMarkup(item) {
+    if (item.id === 'identity') return `<div class="av2-studio-card av2-studio-card--identity" data-studio-card data-studio-type="${item.type}">${studioIdentityMarkup()}</div>`;
+    return `<figure class="av2-studio-card av2-studio-card--${item.id}" data-studio-card data-studio-type="${item.type}"><button type="button" class="av2-studio-card__open" data-studio-detail="${item.id}" aria-label="Open detail view: ${item.title}"><img src="public/assets/demos/form-field/${item.image}" alt="${item.description}" width="1586" height="992" loading="lazy" decoding="async"><span aria-hidden="true">View detail ↗</span></button><figcaption><b>${item.title}</b><p>${item.caption}</p></figcaption></figure>`;
   }
 
   function studioMarkup(filter = 'all') {
     const items = data.studio.filter(item => filter === 'all' || item.type === filter);
-    return `<article class="av2-scene" data-scene="studio"><div class="av2-scene__bar"><strong class="av2-scene__brand">Form / Field Studio</strong><span class="av2-scene__notice">Fictional portfolio</span></div><h4>Design with<br>a working system.</h4><p class="av2-scene__lead">Explore sample creative directions by discipline.</p>${tabButtons(['all','brand','web','campaign'], filter, 'data-studio-filter', 'Portfolio filters')}<div class="av2-grid">${items.map(item => `<div class="av2-card"><b>${item.name}</b><span>${item.detail}</span></div>`).join('')}</div><a class="av2-action" href="#start-project" data-demo-request data-request-type="Design studio website">Request this build</a><div class="av2-status" role="status" data-status>Showing ${filter === 'all' ? 'all fictional work' : `fictional ${filter} work`}.</div></article>`;
+    return `<article class="av2-scene av2-studio" data-scene="studio">
+      <div class="av2-scene__bar"><strong class="av2-scene__brand">FIELD / FORM</strong><span class="av2-scene__notice">Concept project · not client work</span></div>
+      <div class="av2-studio__intro"><div><span>Alemzai concept study</span><h4>A modular identity built to move across media.</h4></div><p>A fictional brand system exploring identity, responsive digital experiences, campaign design and physical applications.</p></div>
+      <dl class="av2-studio__meta"><div><dt>Format</dt><dd>Brand system</dd></div><div><dt>Status</dt><dd>Interactive concept</dd></div><div><dt>Disciplines</dt><dd>Identity · Digital · Campaign</dd></div><div><dt>Input</dt><dd>Pointer · Touch · Keyboard</dd></div></dl>
+      ${tabButtons(['all','identity','digital','campaign'], filter, 'data-studio-filter', 'FIELD / FORM gallery filters')}
+      <div class="av2-studio-gallery" id="field-form-gallery" aria-live="polite">${items.map(studioCardMarkup).join('')}</div>
+      <div class="av2-studio__footer"><a class="av2-action" href="#start-project" data-demo-request data-request-type="Brand system">Build a brand system</a><div class="av2-status" role="status" data-status>Showing ${filter === 'all' ? 'all concept work' : `${filter} concept work`}.</div></div>
+      <p class="av2-studio__disclosure">FIELD / FORM is an Alemzai concept study. It is not client work.</p>
+      <dialog class="av2-studio-modal" data-studio-modal aria-labelledby="studio-modal-title" aria-describedby="studio-modal-description"><button class="av2-studio-modal__close" type="button" data-studio-modal-close aria-label="Close detail view">Close ×</button><div class="av2-studio-modal__media"><img data-studio-modal-image alt="" width="1586" height="992" decoding="async"></div><div class="av2-studio-modal__copy"><span>FIELD / FORM · concept project</span><h5 id="studio-modal-title" data-studio-modal-title></h5><p id="studio-modal-description" data-studio-modal-description></p></div></dialog>
+    </article>`;
   }
 
   function fitnessMarkup(view = 'today') {
@@ -165,6 +199,36 @@
     callback(buttons[next]);
   }
 
+  let modalOpener = null;
+  function closeStudioModal() {
+    const dialog = stage.querySelector('[data-studio-modal]');
+    if (!dialog?.open) return;
+    dialog.close();
+    modalOpener?.focus?.({ preventScroll: true });
+    modalOpener = null;
+  }
+
+  function openStudioModal(button) {
+    const item = data.studio.find(entry => entry.id === button.dataset.studioDetail && entry.image);
+    const dialog = stage.querySelector('[data-studio-modal]');
+    if (!item || !dialog?.showModal) return;
+    const image = dialog.querySelector('[data-studio-modal-image]');
+    image.src = `public/assets/demos/form-field/${item.image}`;
+    image.alt = item.description;
+    dialog.querySelector('[data-studio-modal-title]').textContent = item.title;
+    dialog.querySelector('[data-studio-modal-description]').textContent = item.description;
+    modalOpener = button;
+    dialog.showModal();
+    dialog.querySelector('[data-studio-modal-close]').focus();
+  }
+
+  function selectStudioFilter(filter) {
+    stage.innerHTML = studioMarkup(filter);
+    const selected = stage.querySelector(`[data-studio-filter="${filter}"]`);
+    selected?.focus?.({ preventScroll: true });
+    animateIn(stage.querySelectorAll('[data-studio-card]'));
+  }
+
   mainTabs.forEach(button => listen(button, 'click', () => renderDemo(button.dataset.demoSelect, true)));
   listen(root.querySelector('.av2-demos__selector'), 'keydown', event => selectRoving(event, mainTabs, button => renderDemo(button.dataset.demoSelect)));
 
@@ -172,11 +236,15 @@
     const barber = event.target.closest('[data-barber-state]');
     const food = event.target.closest('[data-food-filter]');
     const studio = event.target.closest('[data-studio-filter]');
+    const studioDetail = event.target.closest('[data-studio-detail]');
+    const studioClose = event.target.closest('[data-studio-modal-close]');
     const fitness = event.target.closest('[data-fitness-view]');
     const time = event.target.closest('[data-time]');
     if (barber) selectBarberState(barber.dataset.barberState);
     if (food) { stage.innerHTML = foodMarkup(food.dataset.foodFilter); animateIn(stage.querySelectorAll('.av2-card')); }
-    if (studio) { stage.innerHTML = studioMarkup(studio.dataset.studioFilter); animateIn(stage.querySelectorAll('.av2-card')); }
+    if (studio) selectStudioFilter(studio.dataset.studioFilter);
+    if (studioDetail) openStudioModal(studioDetail);
+    if (studioClose) closeStudioModal();
     if (fitness) { stage.innerHTML = fitnessMarkup(fitness.dataset.fitnessView); animateIn(stage.querySelectorAll('.av2-card')); }
     if (time) {
       stage.querySelectorAll('[data-time]').forEach(button => button.setAttribute('aria-pressed', String(button === time)));
@@ -194,6 +262,17 @@
   });
 
   listen(stage, 'keydown', event => {
+    const dialog = event.target.closest('[data-studio-modal]');
+    if (dialog?.open && event.key === 'Escape') { event.preventDefault(); closeStudioModal(); return; }
+    if (dialog?.open && event.key === 'Tab') {
+      const focusable = [...dialog.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), [tabindex]:not([tabindex="-1"])')];
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+      return;
+    }
     const container = event.target.closest('[role="tablist"]');
     if (!container) return;
     const buttons = [...container.querySelectorAll('[role="tab"]')];
