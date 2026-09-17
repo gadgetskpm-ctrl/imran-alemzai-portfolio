@@ -1,5 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="12" fill="#090b0a"/>
-  <path d="M18 14h8v36h-8zm20 0h8v36h-8z" fill="#f2f3ef"/>
-  <path d="M29 50 39 14h7L36 50z" fill="#b9ff25"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="ALEMZAI">
+  <rect width="64" height="64" rx="12" fill="#080A09"/>
+  <path fill="#F3F0E8" d="M9 51 22 31h10L19 51H9Z"/>
+  <path fill="#F3F0E8" d="m22 28 7-12h9l19 35H46L33 28H22Z"/>
+  <path fill="#B8FF18" d="M25 42h7v7h-7z"/>
 </svg>
