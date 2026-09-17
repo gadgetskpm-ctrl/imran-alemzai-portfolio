@@ -18,8 +18,8 @@ html.av2-menu-locked { overflow: hidden; }
 .av2-skip:focus { top: 1rem; }
 
 .av2-header { position: absolute; z-index: 60; inset: 0 0 auto; height: 6rem; padding: 0 clamp(1.2rem, 4vw, 4.5rem); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; border-bottom: 1px solid var(--av2-line); }
-.av2-mark { display: inline-flex; width: max-content; flex-direction: column; font: 700 1rem/.9 var(--av2-mono); letter-spacing: .09em; }
-.av2-mark small { margin-top: .35rem; color: var(--av2-muted); font-size: .55rem; letter-spacing: .38em; }
+.av2-mark { display: inline-flex; width: clamp(8.5rem, 12vw, 11rem); }
+.av2-mark img { display: block; width: 100%; height: auto; }
 .av2-status { display: flex; align-items: center; gap: .55rem; margin: 0; color: var(--av2-muted); font: .64rem/1 var(--av2-mono); text-transform: uppercase; letter-spacing: .08em; }
 .av2-status i { width: .45rem; aspect-ratio: 1; border-radius: 50%; background: var(--av2-acid); box-shadow: 0 0 1rem rgba(185, 255, 37, .55); }
 .av2-menu-button { justify-self: end; display: flex; align-items: center; gap: .8rem; padding: .75rem 0 .75rem 1rem; border: 0; background: transparent; color: inherit; cursor: pointer; font: .7rem/1 var(--av2-mono); text-transform: uppercase; letter-spacing: .08em; }

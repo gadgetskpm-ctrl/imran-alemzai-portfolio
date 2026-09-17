@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">ALEMZAI</title>
+  <desc id="desc">ALEMZAI angular A symbol on a black square.</desc>
+  <rect width="1024" height="1024" rx="176" fill="#080A09"/>
+  <g transform="translate(248 308) scale(3)">
+    <path fill="#F3F0E8" d="M4 128 48 60h34l-44 68H4Z"/>
+    <path fill="#F3F0E8" d="M49 50 72 12h30l66 116h-36L88 50H49Z"/>
+    <path fill="#B8FF18" d="M60 96h24v24H60z"/>
+  </g>
+</svg>

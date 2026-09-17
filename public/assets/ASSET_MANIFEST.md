@@ -1,14 +1,24 @@
 # Public asset manifest
 
-This manifest records the repository’s reviewed, public-facing visual assets as of 2026-09-04. It is an inventory and integration guide, not permission to publish new source material. Only the optimized files listed below should be referenced by the site.
+This manifest records the repository’s reviewed, public-facing visual assets. It is an inventory and integration guide, not permission to publish new source material. Only the optimized files listed below should be referenced by the site.
 
 ## Brand
 
 | Asset | Format | Dimensions | Status | Intended use |
 | --- | --- | ---: | --- | --- |
-| `public/assets/brand/alemzai-logo-placeholder.svg` | SVG | 480 × 96 viewBox | **Placeholder — replace before final brand launch** | Local header/footer wordmark fallback. The SVG contains no external links, font imports, scripts, metadata, or embedded raster data. |
+| `public/assets/brand/alemzai-logo-primary.svg` | SVG | 700 × 144 viewBox | Production | Warm-white horizontal lockup with lime accent for dark backgrounds; used by the website header and footer. |
+| `public/assets/brand/alemzai-logo-dark.svg` | SVG | 700 × 144 viewBox | Production | Black horizontal lockup with accessible darker-green accent for light backgrounds. |
+| `public/assets/brand/alemzai-logo-monochrome.svg` | SVG | 700 × 144 viewBox | Production | Single-color horizontal lockup for documents, engraving, and one-color printing. |
+| `public/assets/brand/alemzai-mark.svg` | SVG | 176 × 136 viewBox | Production | Icon-only mark for dark backgrounds. |
+| `public/assets/brand/alemzai-mark-dark.svg` | SVG | 176 × 136 viewBox | Production | Icon-only mark for light backgrounds. |
+| `public/assets/brand/alemzai-mark-monochrome.svg` | SVG | 176 × 136 viewBox | Production | Single-color icon-only mark. |
+| `public/assets/brand/alemzai-logo-primary.png` | PNG | 1400 × 288 | Production | Transparent raster export of the primary horizontal lockup. |
+| `public/assets/brand/alemzai-mark-512.png` | PNG | 512 × 396 | Production | Transparent icon export for profiles and applications that reject SVG. |
+| `public/assets/brand/alemzai-social-profile.svg` | SVG | 1024 × 1024 viewBox | Production | Square black profile image with centered mark. |
+| `public/assets/brand/alemzai-social-profile.png` | PNG | 1024 × 1024 | Production | Raster social-profile export. |
+| `public/assets/brand/alemzai-social-card.png` | PNG | 1200 × 630 | Production | Branded Open Graph and social-sharing preview. |
 
-The placeholder’s accessible name is “Alemzai Systems,” and its description explicitly identifies it as temporary. Its wordmark uses a local system-font fallback and makes no font request. Keep the existing text-based site mark until the final logo is approved, or provide equivalent adjacent text when the SVG is treated as decorative.
+The approved system uses near-black `#080A09`, warm off-white `#F3F0E8`, and electric lime `#B8FF18`. All SVG lettering is outlined, so the logo makes no external font request. Keep clear space around the lockup equal to the lime square. Do not add glow, gradients, shadows, outlines, or alternate accent colors.
 
 ## Northline Barber demo
 
@@ -34,7 +44,7 @@ The current vanilla site serves these tracked assets from `assets/services/`. Th
 
 ## Optimization and safety review
 
-- All eight raster assets are WebP, sRGB, and contain no EXIF or ICC metadata.
+- Portfolio and service raster assets are optimized WebP files. Approved logo raster exports are transparent PNG files and contain no EXIF metadata.
 - Raster widths are 1200–1280 pixels and current file sizes are approximately 25–65 KB; no recompression is presently necessary.
 - No remote asset URLs, external fonts, tracking pixels, scripts, credentials, personal documents, resumes, certificates, private client material, or job-search information are included.
 - Keep meaningful alternative text in page markup. Describe what the image communicates in its UI state; do not repeat nearby headings or imply a real client result.
